@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import users_router
+from app.routers import auth_router, users_router
 
 app = FastAPI(title="BioTrack AI API")
 
@@ -14,6 +14,7 @@ app.add_middleware(
 )
 
 app.include_router(users_router)
+app.include_router(auth_router)
 
 
 @app.get("/")

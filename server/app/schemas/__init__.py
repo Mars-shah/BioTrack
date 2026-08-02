@@ -4,6 +4,7 @@ from app.schemas.health_metric import (
     HealthMetricResponse,
 )
 from app.schemas.user import UserCreate, UserResponse
+from app.schemas.dashboard import DashboardResponse, DashboardUser
 
 __all__ = [
     "LoginRequest",
@@ -12,4 +13,6 @@ __all__ = [
     "UserResponse",
     "HealthMetricCreate",
     "HealthMetricResponse",
+    "DashboardResponse",
+    "DashboardUser",
 ]

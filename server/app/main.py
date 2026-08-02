@@ -5,6 +5,7 @@ from app.routers import (
     auth_router,
     health_metrics_router,
     users_router,
+    dashboard_router,
 )
 
 app = FastAPI(title="BioTrack AI API")
@@ -20,7 +21,7 @@ app.add_middleware(
 app.include_router(users_router)
 app.include_router(auth_router)
 app.include_router(health_metrics_router)
-
+app.include_router(dashboard_router)
 
 @app.get("/")
 def root():

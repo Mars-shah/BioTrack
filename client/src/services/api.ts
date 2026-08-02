@@ -45,3 +45,39 @@ export async function getDashboard() {
 
   return response.json();
 }
+
+export type HealthMetricInput = {
+  heart_rate?: number;
+  weight_kg?: number;
+  steps?: number;
+  sleep_hours?: number;
+};
+
+export async function createHealthMetric(
+  metric: HealthMetricInput,
+) {
+  const token = localStorage.getItem("access_token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(`${API_URL}/health-metrics`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(metric),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    throw new Error(
+      errorData?.detail || "Unable to save health metrics.",
+    );
+  }
+
+  return response.json();
+}

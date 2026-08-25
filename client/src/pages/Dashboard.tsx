@@ -149,6 +149,95 @@ function Dashboard() {
       value: Number(metric.heart_rate),
     }));
 
+  // Weekly statistics
+  const sevenDaysAgo = new Date();
+
+  sevenDaysAgo.setDate(
+    sevenDaysAgo.getDate() - 7
+  );
+
+  const weeklyHistory = healthHistory.filter(
+    (metric) =>
+      new Date(metric.recorded_at) >= sevenDaysAgo
+  );
+
+  // Average steps
+  const stepValues = weeklyHistory
+    .filter((metric) => metric.steps !== null)
+    .map((metric) => metric.steps);
+
+  const totalSteps = stepValues.reduce(
+    (total, step) => total + step,
+    0
+  );
+
+  const averageSteps =
+    stepValues.length === 0
+      ? 0
+      : Math.round(totalSteps / stepValues.length);
+
+  // Average sleep
+  const sleepValues = weeklyHistory
+    .filter((metric) => metric.sleep_hours !== null)
+    .map((metric) => Number(metric.sleep_hours));
+
+  const totalSleep = sleepValues.reduce(
+    (total, sleep) => total + sleep,
+    0
+  );
+
+  const averageSleep =
+    sleepValues.length === 0
+      ? 0
+      : totalSleep / sleepValues.length;
+
+  const formattedAverageSleep =
+    averageSleep.toFixed(1);
+
+  // Average heart rate
+  const heartRateValues = weeklyHistory
+    .filter((metric) => metric.heart_rate !== null)
+    .map((metric) => metric.heart_rate);
+
+  const totalHeartRate = heartRateValues.reduce(
+    (total, heartRate) => total + heartRate,
+    0
+  );
+
+  const averageHeartRate =
+    heartRateValues.length === 0
+      ? 0
+      : Math.round(
+          totalHeartRate / heartRateValues.length
+        );
+
+  // Weekly weight change
+  const weeklyWeightValues = weeklyHistory
+    .filter((metric) => metric.weight_kg !== null)
+    .map((metric) => ({
+      weight: Number(metric.weight_kg),
+      recordedAt: new Date(metric.recorded_at),
+    }))
+    .sort(
+      (a, b) =>
+        a.recordedAt.getTime() -
+        b.recordedAt.getTime(),
+    );
+
+  const weeklyWeightChange =
+    weeklyWeightValues.length < 2
+      ? null
+      : weeklyWeightValues[
+          weeklyWeightValues.length - 1
+        ].weight - weeklyWeightValues[0].weight;
+
+  const formattedWeightChange =
+    weeklyWeightChange === null
+      ? "Not enough data"
+      : `${weeklyWeightChange > 0 ? "+" : ""}${weeklyWeightChange.toFixed(
+          1,
+        )} kg`;
+
   if (isLoading) {
     return (
       <main className="min-h-screen bg-slate-50 p-8">
@@ -172,7 +261,6 @@ function Dashboard() {
   return (
     <main className="min-h-screen bg-slate-50 px-6 py-10">
       <div className="mx-auto max-w-6xl">
-
         <h1 className="text-3xl font-bold text-slate-900">
           Welcome back, {data?.user.name}
         </h1>
@@ -183,7 +271,6 @@ function Dashboard() {
 
         {!data?.latest_metrics ? (
           <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-
             <h2 className="text-xl font-semibold text-slate-900">
               No health data yet
             </h2>
@@ -191,11 +278,9 @@ function Dashboard() {
             <p className="mt-2 text-slate-600">
               Add your first health measurement to begin tracking your progress.
             </p>
-
           </div>
         ) : (
           <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-
             <SummaryCard
               title="Heart Rate"
               value={
@@ -239,12 +324,54 @@ function Dashboard() {
               icon="😴"
               color="purple"
             />
-
           </section>
         )}
 
         <section className="mt-10">
+          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+            This week
+          </p>
 
+          <h2 className="mt-2 text-2xl font-bold text-slate-900">
+            Weekly summary
+          </h2>
+
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <SummaryCard
+              title="Average Steps"
+              value={averageSteps.toLocaleString()}
+              icon="👣"
+              color="green"
+            />
+
+            <SummaryCard
+              title="Average Sleep"
+              value={`${formattedAverageSleep} hours`}
+              icon="😴"
+              color="purple"
+            />
+
+            <SummaryCard
+              title="Average Heart Rate"
+              value={
+                averageHeartRate === 0
+                  ? "No data"
+                  : `${averageHeartRate} BPM`
+              }
+              icon="❤️"
+              color="red"
+            />
+
+            <SummaryCard
+              title="Weight Change"
+              value={formattedWeightChange}
+              icon="⚖️"
+              color="blue"
+            />
+          </div>
+        </section>
+
+        <section className="mt-10">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
               Trends
@@ -260,7 +387,6 @@ function Dashboard() {
           </div>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
-
             <HealthTrendChart
               title="Weight trend"
               unit="kg"
@@ -272,12 +398,10 @@ function Dashboard() {
               unit="BPM"
               data={heartRateChartData}
             />
-
           </div>
         </section>
 
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-
           <h2 className="text-xl font-semibold text-slate-900">
             Add health metrics
           </h2>
@@ -290,7 +414,6 @@ function Dashboard() {
             onSubmit={handleMetricSubmit}
             className="mt-6 grid gap-5 sm:grid-cols-2"
           >
-
             <MetricInput
               label="Heart rate"
               value={heartRate}
@@ -342,10 +465,8 @@ function Dashboard() {
             >
               {isSaving ? "Saving..." : "Save metrics"}
             </button>
-
           </form>
         </section>
-
       </div>
     </main>
   );
@@ -372,7 +493,6 @@ function MetricInput({
 }: MetricInputProps) {
   return (
     <div>
-
       <label className="mb-2 block text-sm font-medium text-slate-700">
         {label}
       </label>
@@ -389,7 +509,6 @@ function MetricInput({
         step={step}
         className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
       />
-
     </div>
   );
 }

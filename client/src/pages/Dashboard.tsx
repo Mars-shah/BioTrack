@@ -204,6 +204,7 @@ function Dashboard() {
                   : "No data"
               }
               icon="❤️"
+              color="red"
             />
 
             <SummaryCard
@@ -214,6 +215,7 @@ function Dashboard() {
                   : "No data"
               }
               icon="⚖️"
+              color="blue"
             />
 
             <SummaryCard
@@ -224,6 +226,7 @@ function Dashboard() {
                   : "No data"
               }
               icon="👣"
+              color="green"
             />
 
             <SummaryCard
@@ -234,6 +237,7 @@ function Dashboard() {
                   : "No data"
               }
               icon="😴"
+              color="purple"
             />
 
           </section>

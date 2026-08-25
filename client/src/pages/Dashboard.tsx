@@ -5,15 +5,21 @@ import {
   useState,
 } from "react";
 
+import HealthTrendChart from "../components/HealthTrendChart";
+import SummaryCard from "../components/SummaryCard";
+
 import {
   createHealthMetric,
   getDashboard,
+  getHealthMetrics,
+  type HealthMetric,
 } from "../services/api";
 
 type DashboardData = {
   user: {
     name: string;
   };
+
   latest_metrics: {
     id: number;
     user_id: number;
@@ -27,6 +33,7 @@ type DashboardData = {
 
 function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
+  const [healthHistory, setHealthHistory] = useState<HealthMetric[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,13 +41,19 @@ function Dashboard() {
   const [weightKg, setWeightKg] = useState("");
   const [steps, setSteps] = useState("");
   const [sleepHours, setSleepHours] = useState("");
+
   const [formError, setFormError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   const loadDashboard = useCallback(async () => {
     try {
-      const dashboardData = await getDashboard();
+      const [dashboardData, historyData] = await Promise.all([
+        getDashboard(),
+        getHealthMetrics(),
+      ]);
+
       setData(dashboardData);
+      setHealthHistory(historyData);
       setError("");
     } catch (error) {
       setError(
@@ -75,12 +88,15 @@ function Dashboard() {
         heart_rate: heartRate
           ? Number(heartRate)
           : undefined,
+
         weight_kg: weightKg
           ? Number(weightKg)
           : undefined,
+
         steps: steps
           ? Number(steps)
           : undefined,
+
         sleep_hours: sleepHours
           ? Number(sleepHours)
           : undefined,
@@ -103,10 +119,42 @@ function Dashboard() {
     }
   }
 
+  const chronologicalHistory = [...healthHistory].reverse();
+
+  const weightChartData = chronologicalHistory
+    .filter((metric) => metric.weight_kg !== null)
+    .map((metric) => ({
+      date: new Date(metric.recorded_at).toLocaleDateString(
+        undefined,
+        {
+          month: "short",
+          day: "numeric",
+        },
+      ),
+
+      value: Number(metric.weight_kg),
+    }));
+
+  const heartRateChartData = chronologicalHistory
+    .filter((metric) => metric.heart_rate !== null)
+    .map((metric) => ({
+      date: new Date(metric.recorded_at).toLocaleDateString(
+        undefined,
+        {
+          month: "short",
+          day: "numeric",
+        },
+      ),
+
+      value: Number(metric.heart_rate),
+    }));
+
   if (isLoading) {
     return (
       <main className="min-h-screen bg-slate-50 p-8">
-        <p className="text-slate-600">Loading dashboard...</p>
+        <p className="text-slate-600">
+          Loading dashboard...
+        </p>
       </main>
     );
   }
@@ -114,7 +162,9 @@ function Dashboard() {
   if (error) {
     return (
       <main className="min-h-screen bg-slate-50 p-8">
-        <p className="text-red-600">{error}</p>
+        <p className="text-red-600">
+          {error}
+        </p>
       </main>
     );
   }
@@ -122,66 +172,108 @@ function Dashboard() {
   return (
     <main className="min-h-screen bg-slate-50 px-6 py-10">
       <div className="mx-auto max-w-6xl">
+
         <h1 className="text-3xl font-bold text-slate-900">
           Welcome back, {data?.user.name}
         </h1>
 
         <p className="mt-2 text-slate-600">
-          Review your latest health measurements and add a new entry.
+          Review your latest health measurements and track your progress.
         </p>
 
         {!data?.latest_metrics ? (
           <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+
             <h2 className="text-xl font-semibold text-slate-900">
               No health data yet
             </h2>
 
             <p className="mt-2 text-slate-600">
-              Add your first health measurement to begin tracking your
-              progress.
+              Add your first health measurement to begin tracking your progress.
             </p>
+
           </div>
         ) : (
           <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <MetricCard
+
+            <SummaryCard
               title="Heart Rate"
               value={
                 data.latest_metrics.heart_rate !== null
                   ? `${data.latest_metrics.heart_rate} BPM`
                   : "No data"
               }
+              icon="❤️"
             />
 
-            <MetricCard
+            <SummaryCard
               title="Weight"
               value={
                 data.latest_metrics.weight_kg !== null
                   ? `${data.latest_metrics.weight_kg} kg`
                   : "No data"
               }
+              icon="⚖️"
             />
 
-            <MetricCard
+            <SummaryCard
               title="Steps"
               value={
                 data.latest_metrics.steps !== null
                   ? data.latest_metrics.steps.toLocaleString()
                   : "No data"
               }
+              icon="👣"
             />
 
-            <MetricCard
+            <SummaryCard
               title="Sleep"
               value={
                 data.latest_metrics.sleep_hours !== null
                   ? `${data.latest_metrics.sleep_hours} hours`
                   : "No data"
               }
+              icon="😴"
             />
+
           </section>
         )}
 
+        <section className="mt-10">
+
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+              Trends
+            </p>
+
+            <h2 className="mt-2 text-2xl font-bold text-slate-900">
+              Your health history
+            </h2>
+
+            <p className="mt-2 text-slate-600">
+              Review how your measurements have changed over time.
+            </p>
+          </div>
+
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+
+            <HealthTrendChart
+              title="Weight trend"
+              unit="kg"
+              data={weightChartData}
+            />
+
+            <HealthTrendChart
+              title="Heart-rate trend"
+              unit="BPM"
+              data={heartRateChartData}
+            />
+
+          </div>
+        </section>
+
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+
           <h2 className="text-xl font-semibold text-slate-900">
             Add health metrics
           </h2>
@@ -194,6 +286,7 @@ function Dashboard() {
             onSubmit={handleMetricSubmit}
             className="mt-6 grid gap-5 sm:grid-cols-2"
           >
+
             <MetricInput
               label="Heart rate"
               value={heartRate}
@@ -245,26 +338,12 @@ function Dashboard() {
             >
               {isSaving ? "Saving..." : "Save metrics"}
             </button>
+
           </form>
         </section>
+
       </div>
     </main>
-  );
-}
-
-type MetricCardProps = {
-  title: string;
-  value: string;
-};
-
-function MetricCard({ title, value }: MetricCardProps) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <p className="text-sm font-medium text-slate-500">{title}</p>
-      <p className="mt-3 text-2xl font-bold text-slate-900">
-        {value}
-      </p>
-    </div>
   );
 }
 
@@ -289,6 +368,7 @@ function MetricInput({
 }: MetricInputProps) {
   return (
     <div>
+
       <label className="mb-2 block text-sm font-medium text-slate-700">
         {label}
       </label>
@@ -296,13 +376,16 @@ function MetricInput({
       <input
         type="number"
         value={value}
-        onChange={(event) => onChange(event.target.value)}
+        onChange={(event) =>
+          onChange(event.target.value)
+        }
         placeholder={placeholder}
         min={min}
         max={max}
         step={step}
         className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
       />
+
     </div>
   );
 }

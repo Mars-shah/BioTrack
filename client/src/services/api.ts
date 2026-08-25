@@ -81,3 +81,37 @@ export async function createHealthMetric(
 
   return response.json();
 }
+
+export type HealthMetric = {
+  id: number;
+  user_id: number;
+  heart_rate: number | null;
+  weight_kg: number | null;
+  steps: number | null;
+  sleep_hours: number | null;
+  recorded_at: string;
+};
+
+export async function getHealthMetrics(): Promise<HealthMetric[]> {
+  const token = localStorage.getItem("access_token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(`${API_URL}/health-metrics`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    throw new Error(
+      errorData?.detail || "Unable to load health history.",
+    );
+  }
+
+  return response.json();
+}

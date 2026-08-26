@@ -1,3 +1,6 @@
+import os
+
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,6 +13,13 @@ from app.routers import (
     users_router,
 )
 
+load_dotenv()
+
+FRONTEND_URL = os.getenv(
+    "FRONTEND_URL",
+    "http://localhost:5173",
+)
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="BioTrack AI API")
@@ -18,7 +28,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://bio-track-amber.vercel.app",
+        FRONTEND_URL,
     ],
     allow_credentials=True,
     allow_methods=["*"],

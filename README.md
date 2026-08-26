@@ -1,7 +1,17 @@
 
-![biotrack logo](client/src/assets/biotrack-logo.svg)
+<p align="center">
+  <img src="client/src/assets/biotrack-logo.svg" alt="BioTrack logo" width="220">
+</p>
 
-BioTrack is a full-stack health tracking web application that allows users to record personal health metrics, monitor changes over time, and view their data through a simple dashboard. Large apps do not give us the freedom to add our own values, and alter incorrect data. A prime example of this is when playing sports, your likely take off your device. This would mean a large chunk of steps is missing. Through BioTrack more accurate attributes can be tracked to see progress over a week, month, and all time. 
+### About
+
+BioTrack is a full-stack health tracking application that gives users direct
+control over their health records. Users can manually record and correct
+metrics such as heart rate, weight, steps, and sleep, making it possible to
+account for activity that wearable devices may miss.
+
+BioTrack organizes these measurements into weekly, monthly, and all-time
+trends through a personalized dashboard.
 
 **Live Demo:** https://bio-track-amber.vercel.app
 
@@ -49,6 +59,15 @@ Neon
 Vercel — frontend
 Render — FastAPI backend
 Neon — PostgreSQL database
+
+## Engineering Highlights
+
+Designed a REST API with FastAPI using separate router, service, schema, and model layers.
+Implemented JWT-based authentication and protected user-specific resources.
+Built full CRUD operations for health records with PostgreSQL persistence.
+Created responsive React dashboards with interactive health trend visualizations.
+Configured separate development and production environments using environment variables and CORS restrictions.
+Deployed the frontend, API, and database independently using Vercel, Render, and Neon.
 
 ## Architecture
 
@@ -107,8 +126,8 @@ FastAPI also provides interactive API documentation through Swagger UI.
 ### 1. Clone the repository
 
 ```bash
-git clone <https://github.com/Mars-shah/BioTrack.git>
-cd BioTrackAI
+git clone git clone https://github.com/Mars-shah/BioTrack.git
+cd BioTrack
 ```
 
 ### 2. Backend

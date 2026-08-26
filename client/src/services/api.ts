@@ -1,6 +1,9 @@
 const API_URL = "http://127.0.0.1:8000";
 
-export async function loginUser(email: string, password: string) {
+export async function loginUser(
+  email: string,
+  password: string,
+) {
   const response = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: {
@@ -16,12 +19,45 @@ export async function loginUser(email: string, password: string) {
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail || "Unable to log in. Please try again.",
+      errorData?.detail ||
+        "Unable to log in. Please try again.",
     );
   }
 
   return response.json();
 }
+
+export type RegisterUserInput = {
+  name: string;
+  email: string;
+  password: string;
+  date_of_birth?: string;
+  height_cm?: number;
+};
+
+export async function registerUser(
+  user: RegisterUserInput,
+) {
+  const response = await fetch(`${API_URL}/users/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    throw new Error(
+      errorData?.detail ||
+        "Unable to create account.",
+    );
+  }
+
+  return response.json();
+}
+
 export async function getDashboard() {
   const token = localStorage.getItem("access_token");
 
@@ -39,7 +75,8 @@ export async function getDashboard() {
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail || "Unable to load dashboard.",
+      errorData?.detail ||
+        "Unable to load dashboard.",
     );
   }
 
@@ -75,7 +112,8 @@ export async function createHealthMetric(
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail || "Unable to save health metrics.",
+      errorData?.detail ||
+        "Unable to save health metrics.",
     );
   }
 
@@ -109,7 +147,8 @@ export async function getHealthMetrics(): Promise<HealthMetric[]> {
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail || "Unable to load health history.",
+      errorData?.detail ||
+        "Unable to load health history.",
     );
   }
 

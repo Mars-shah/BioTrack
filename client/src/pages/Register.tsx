@@ -78,7 +78,7 @@ function Register() {
                 setName(event.target.value)
               }
               required
-              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-teal-700"
             />
           </div>
 
@@ -99,7 +99,7 @@ function Register() {
               }
               required
               autoComplete="email"
-              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-teal-700"
             />
           </div>
 
@@ -121,7 +121,7 @@ function Register() {
               required
               minLength={8}
               autoComplete="new-password"
-              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-teal-700"
             />
           </div>
 
@@ -140,7 +140,7 @@ function Register() {
               onChange={(event) =>
                 setDateOfBirth(event.target.value)
               }
-              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-teal-700"
             />
           </div>
 
@@ -162,7 +162,7 @@ function Register() {
               min="1"
               max="300"
               step="0.1"
-              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-teal-700"
             />
           </div>
 
@@ -175,7 +175,7 @@ function Register() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-lg bg-teal-700 px-4 py-3 font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isLoading
               ? "Creating account..."
@@ -187,7 +187,7 @@ function Register() {
           Already have an account?{" "}
           <Link
             to="/login"
-            className="font-semibold text-blue-600 hover:text-blue-700"
+            className="font-semibold text-teal-600 hover:text-teal-700"
           >
             Log in
           </Link>

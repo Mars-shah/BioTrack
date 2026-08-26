@@ -501,7 +501,7 @@ function Dashboard() {
             <button
               type="submit"
               disabled={isSaving}
-              className="rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
+              className="rounded-lg bg-teal-700 px-5 py-3 font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
             >
               {isSaving ? "Saving..." : "Save metrics"}
             </button>
@@ -533,7 +533,7 @@ function ChartRangeButton({
       onClick={() => onChange(value)}
       className={`rounded-md px-3 py-2 text-sm font-medium ${
         isSelected
-          ? "bg-blue-600 text-white"
+          ? "bg-teal-600 text-white"
           : "text-slate-600 hover:bg-slate-100"
       }`}
     >

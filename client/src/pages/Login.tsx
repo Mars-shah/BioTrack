@@ -63,7 +63,7 @@ function Login() {
               onChange={(event) => setEmail(event.target.value)}
               required
               autoComplete="email"
-              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-teal-700"
             />
           </div>
 
@@ -82,7 +82,7 @@ function Login() {
               onChange={(event) => setPassword(event.target.value)}
               required
               autoComplete="current-password"
-              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-teal-700"
             />
           </div>
 
@@ -95,7 +95,7 @@ function Login() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-lg bg-teal-700 px-4 py-3 font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isLoading ? "Logging in..." : "Log in"}
           </button>

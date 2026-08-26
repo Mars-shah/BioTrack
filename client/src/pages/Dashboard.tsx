@@ -7,6 +7,7 @@ import {
 
 import HealthTrendChart from "../components/HealthTrendChart";
 import SummaryCard from "../components/SummaryCard";
+import RecentEntries from "../components/RecentEntries";
 
 import {
   createHealthMetric,
@@ -354,6 +355,8 @@ function Dashboard() {
           </div>
         </section>
 
+
+
         <section className="mt-10">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
@@ -382,6 +385,12 @@ function Dashboard() {
               data={heartRateChartData}
             />
           </div>
+        </section>
+
+        <section className="mt-10">
+            <RecentEntries
+              entries={healthHistory}
+              onChange={loadDashboard}/>
         </section>
 
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">

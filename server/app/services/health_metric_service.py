@@ -36,3 +36,47 @@ def get_health_metrics(
     )
 
     return list(db.scalars(statement).all())
+
+
+def update_health_metric(
+    db: Session,
+    user_id: int,
+    metric_id: int,
+    metric_data: HealthMetricCreate,
+) -> HealthMetric | None:
+    metric = db.get(HealthMetric, metric_id)
+
+    if metric is None:
+        return None
+
+    if metric.user_id != user_id:
+        return None
+
+    metric.heart_rate = metric_data.heart_rate
+    metric.weight_kg = metric_data.weight_kg
+    metric.steps = metric_data.steps
+    metric.sleep_hours = metric_data.sleep_hours
+
+    db.commit()
+    db.refresh(metric)
+
+    return metric
+
+
+def delete_health_metric(
+    db: Session,
+    user_id: int,
+    metric_id: int,
+) -> bool:
+    metric = db.get(HealthMetric, metric_id)
+
+    if metric is None:
+        return False
+
+    if metric.user_id != user_id:
+        return False
+
+    db.delete(metric)
+    db.commit()
+
+    return True

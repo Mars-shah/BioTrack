@@ -90,6 +90,16 @@ export type HealthMetricInput = {
   sleep_hours?: number;
 };
 
+export type HealthMetric = {
+  id: number;
+  user_id: number;
+  heart_rate: number | null;
+  weight_kg: number | null;
+  steps: number | null;
+  sleep_hours: number | null;
+  recorded_at: string;
+};
+
 export async function createHealthMetric(
   metric: HealthMetricInput,
 ) {
@@ -120,16 +130,6 @@ export async function createHealthMetric(
   return response.json();
 }
 
-export type HealthMetric = {
-  id: number;
-  user_id: number;
-  heart_rate: number | null;
-  weight_kg: number | null;
-  steps: number | null;
-  sleep_hours: number | null;
-  recorded_at: string;
-};
-
 export async function getHealthMetrics(): Promise<HealthMetric[]> {
   const token = localStorage.getItem("access_token");
 
@@ -153,4 +153,67 @@ export async function getHealthMetrics(): Promise<HealthMetric[]> {
   }
 
   return response.json();
+}
+
+export async function updateHealthMetric(
+  metricId: number,
+  metric: HealthMetricInput,
+) {
+  const token = localStorage.getItem("access_token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(
+    `${API_URL}/health-metrics/${metricId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(metric),
+    },
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    throw new Error(
+      errorData?.detail ||
+        "Unable to update health metric.",
+    );
+  }
+
+  return response.json();
+}
+
+export async function deleteHealthMetric(
+  metricId: number,
+) {
+  const token = localStorage.getItem("access_token");
+
+  if (!token) {
+    throw new Error("You are not logged in.");
+  }
+
+  const response = await fetch(
+    `${API_URL}/health-metrics/${metricId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    throw new Error(
+      errorData?.detail ||
+        "Unable to delete health metric.",
+    );
+  }
 }

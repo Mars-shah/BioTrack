@@ -42,6 +42,8 @@ type DashboardData = {
   } | null;
 };
 
+type ChartRange = "7d" | "30d" | "all";
+
 function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [healthHistory, setHealthHistory] = useState<HealthMetric[]>([]);
@@ -55,6 +57,9 @@ function Dashboard() {
 
   const [formError, setFormError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+
+  const [chartRange, setChartRange] =
+    useState<ChartRange>("30d");
 
   const loadDashboard = useCallback(async () => {
     try {
@@ -130,7 +135,28 @@ function Dashboard() {
     }
   }
 
-  const chronologicalHistory = [...healthHistory].reverse();
+  const now = new Date();
+
+  const filteredHistory = healthHistory.filter((metric) => {
+    if (chartRange === "all") {
+      return true;
+    }
+
+    const days = chartRange === "7d" ? 7 : 30;
+
+    const startDate = new Date(now);
+
+    startDate.setDate(
+      startDate.getDate() - days,
+    );
+
+    return (
+      new Date(metric.recorded_at) >= startDate
+    );
+  });
+
+  const chronologicalHistory =
+    [...filteredHistory].reverse();
 
   const weightChartData = chronologicalHistory
     .filter((metric) => metric.weight_kg !== null)
@@ -355,21 +381,44 @@ function Dashboard() {
           </div>
         </section>
 
-
-
         <section className="mt-10">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
-              Trends
-            </p>
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+                Trends
+              </p>
 
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">
-              Your health history
-            </h2>
+              <h2 className="mt-2 text-2xl font-bold text-slate-900">
+                Your health history
+              </h2>
 
-            <p className="mt-2 text-slate-600">
-              Review how your measurements have changed over time.
-            </p>
+              <p className="mt-2 text-slate-600">
+                Review how your measurements have changed over time.
+              </p>
+            </div>
+
+            <div className="flex rounded-lg border border-slate-200 bg-white p-1">
+              <ChartRangeButton
+                label="7 Days"
+                value="7d"
+                selected={chartRange}
+                onChange={setChartRange}
+              />
+
+              <ChartRangeButton
+                label="30 Days"
+                value="30d"
+                selected={chartRange}
+                onChange={setChartRange}
+              />
+
+              <ChartRangeButton
+                label="All Time"
+                value="all"
+                selected={chartRange}
+                onChange={setChartRange}
+              />
+            </div>
           </div>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
@@ -388,9 +437,10 @@ function Dashboard() {
         </section>
 
         <section className="mt-10">
-            <RecentEntries
-              entries={healthHistory}
-              onChange={loadDashboard}/>
+          <RecentEntries
+            entries={healthHistory}
+            onChange={loadDashboard}
+          />
         </section>
 
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -461,6 +511,36 @@ function Dashboard() {
         </section>
       </div>
     </main>
+  );
+}
+
+type ChartRangeButtonProps = {
+  label: string;
+  value: ChartRange;
+  selected: ChartRange;
+  onChange: (value: ChartRange) => void;
+};
+
+function ChartRangeButton({
+  label,
+  value,
+  selected,
+  onChange,
+}: ChartRangeButtonProps) {
+  const isSelected = selected === value;
+
+  return (
+    <button
+      type="button"
+      onClick={() => onChange(value)}
+      className={`rounded-md px-3 py-2 text-sm font-medium ${
+        isSelected
+          ? "bg-blue-600 text-white"
+          : "text-slate-600 hover:bg-slate-100"
+      }`}
+    >
+      {label}
+    </button>
   );
 }
 

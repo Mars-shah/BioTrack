@@ -14,16 +14,16 @@ import {
 function Home() {
   return (
     <main className="bg-white">
-      <section className="px-6 py-16">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+      <section className="px-6 py-10">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
               Personal health tracking
             </p>
 
-            <h1 className="mt-4 text-5xl font-bold leading-tight text-slate-900">
+            <h1 className="mt-4 max-w-xl text-5xl font-bold leading-tight text-slate-900">
               Your health data,
-              <span className="text-blue-600"> made clearer.</span>
+              <span className="text-teal-700"> made clearer.</span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
@@ -35,7 +35,7 @@ function Home() {
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 to="/register"
-                className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+                className="inline-flex items-center gap-2 rounded-lg bg-teal-700 px-6 py-3 font-semibold text-white transition hover:bg-teal-800"
               >
                 Get started
                 <ArrowRight size={18} />
@@ -43,20 +43,26 @@ function Home() {
 
               <Link
                 to="/login"
-                className="rounded-lg border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50"
+                className="rounded-lg border border-slate-300 px-6 py-3 font-semibold text-slate-700 transition hover:border-teal-300 hover:bg-teal-50 hover:text-teal-800"
               >
                 Log in
               </Link>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-6 text-sm text-slate-500">
+            <div className="mt-7 flex flex-wrap gap-6 text-sm text-slate-500">
               <div className="flex items-center gap-2">
-                <ShieldCheck size={17} />
+                <ShieldCheck
+                  size={17}
+                  className="text-teal-700"
+                />
                 Secure account access
               </div>
 
               <div className="flex items-center gap-2">
-                <TrendingUp size={17} />
+                <TrendingUp
+                  size={17}
+                  className="text-teal-700"
+                />
                 Track changes over time
               </div>
             </div>
@@ -74,14 +80,17 @@ function Home() {
                 </h2>
               </div>
 
-              <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
+              <div className="rounded-xl bg-teal-100 p-3 text-teal-700">
                 <Activity size={24} />
               </div>
             </div>
 
             <div className="mt-6 grid grid-cols-2 gap-4">
               <div className="rounded-2xl border border-red-100 bg-red-50 p-5">
-                <HeartPulse size={24} className="text-red-500" />
+                <HeartPulse
+                  size={24}
+                  className="text-red-500"
+                />
 
                 <p className="mt-4 text-sm font-medium text-slate-500">
                   Heart Rate
@@ -93,7 +102,10 @@ function Home() {
               </div>
 
               <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-                <Weight size={24} className="text-blue-500" />
+                <Weight
+                  size={24}
+                  className="text-blue-500"
+                />
 
                 <p className="mt-4 text-sm font-medium text-slate-500">
                   Weight
@@ -105,7 +117,10 @@ function Home() {
               </div>
 
               <div className="rounded-2xl border border-green-100 bg-green-50 p-5">
-                <Footprints size={24} className="text-green-500" />
+                <Footprints
+                  size={24}
+                  className="text-green-500"
+                />
 
                 <p className="mt-4 text-sm font-medium text-slate-500">
                   Steps
@@ -117,7 +132,10 @@ function Home() {
               </div>
 
               <div className="rounded-2xl border border-purple-100 bg-purple-50 p-5">
-                <Moon size={24} className="text-purple-500" />
+                <Moon
+                  size={24}
+                  className="text-purple-500"
+                />
 
                 <p className="mt-4 text-sm font-medium text-slate-500">
                   Sleep
@@ -130,7 +148,10 @@ function Home() {
             </div>
 
             <div className="mt-4 flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-5">
-              <TrendingUp size={22} className="text-blue-600" />
+              <TrendingUp
+                size={22}
+                className="shrink-0 text-teal-700"
+              />
 
               <div>
                 <p className="font-semibold text-slate-900">
@@ -149,7 +170,7 @@ function Home() {
 
       <section className="border-y border-slate-200 bg-slate-50 px-6 py-16">
         <div className="mx-auto max-w-6xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
             One simple dashboard
           </p>
 
@@ -163,8 +184,8 @@ function Home() {
           </p>
 
           <div className="mt-10 grid gap-6 text-left md:grid-cols-3">
-            <div className="rounded-2xl border border-slate-200 bg-white p-7">
-              <div className="inline-flex rounded-xl bg-blue-50 p-3 text-blue-600">
+            <div className="rounded-xl border border-slate-200 bg-white p-7">
+              <div className="inline-flex rounded-lg bg-teal-50 p-3 text-teal-700">
                 <Activity size={25} />
               </div>
 
@@ -178,8 +199,8 @@ function Home() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-7">
-              <div className="inline-flex rounded-xl bg-blue-50 p-3 text-blue-600">
+            <div className="rounded-xl border border-slate-200 bg-white p-7">
+              <div className="inline-flex rounded-lg bg-teal-50 p-3 text-teal-700">
                 <TrendingUp size={25} />
               </div>
 
@@ -193,8 +214,8 @@ function Home() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-7">
-              <div className="inline-flex rounded-xl bg-blue-50 p-3 text-blue-600">
+            <div className="rounded-xl border border-slate-200 bg-white p-7">
+              <div className="inline-flex rounded-lg bg-teal-50 p-3 text-teal-700">
                 <ShieldCheck size={25} />
               </div>
 
@@ -211,23 +232,32 @@ function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-20">
-        <div className="mx-auto max-w-4xl rounded-3xl bg-slate-900 px-8 py-12 text-center">
-          <h2 className="text-3xl font-bold text-white">
-            Ready to start tracking?
-          </h2>
+      <section className="px-6 py-14">
+        <div className="mx-auto max-w-6xl border-y border-slate-200 py-12">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-xl">
+              <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
+                Start tracking
+              </p>
 
-          <p className="mt-4 text-slate-300">
-            Create an account and start building your health history.
-          </p>
+              <h2 className="mt-3 text-3xl font-bold text-slate-900">
+                Build a health history you can actually follow.
+              </h2>
 
-          <Link
-            to="/register"
-            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
-          >
-            Create account
-            <ArrowRight size={18} />
-          </Link>
+              <p className="mt-4 leading-7 text-slate-600">
+                Create an account, add your first measurements, and start
+                seeing your trends over time.
+              </p>
+            </div>
+
+            <Link
+              to="/register"
+              className="inline-flex w-fit items-center gap-2 rounded-lg bg-teal-700 px-6 py-3 font-semibold text-white transition hover:bg-teal-800"
+            >
+              Create account
+              <ArrowRight size={18} />
+            </Link>
+          </div>
         </div>
 
         <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-5 text-slate-400">

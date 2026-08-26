@@ -27,7 +27,7 @@ function Navbar() {
         <div className="flex items-center gap-6">
           <Link
             to="/"
-            className="text-sm font-medium text-slate-600 hover:text-blue-600"
+            className="text-sm font-medium text-slate-600 hover:text-red-600"
           >
             Home
           </Link>
@@ -36,7 +36,7 @@ function Navbar() {
             <>
               <Link
                 to="/dashboard"
-                className="text-sm font-medium text-slate-600 hover:text-blue-600"
+                className="text-sm font-medium text-slate-600 hover:text-red-600"
               >
                 Dashboard
               </Link>
@@ -44,7 +44,7 @@ function Navbar() {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
               >
                 Logout
               </button>
@@ -53,14 +53,14 @@ function Navbar() {
             <>
               <Link
                 to="/login"
-                className="text-sm font-medium text-slate-600 hover:text-blue-600"
+                className="text-sm font-medium text-slate-600 hover:text-red-600"
               >
                 Login
               </Link>
 
               <Link
                 to="/register"
-                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
               >
                 Register
               </Link>

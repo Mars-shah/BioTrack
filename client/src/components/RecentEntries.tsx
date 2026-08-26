@@ -1,6 +1,13 @@
 import { useState } from "react";
 
 import {
+  Footprints,
+  HeartPulse,
+  Moon,
+  Weight,
+} from "lucide-react";
+
+import {
   deleteHealthMetric,
   updateHealthMetric,
   type HealthMetric,
@@ -265,34 +272,58 @@ function RecentEntries({
                 </div>
               </div>
             ) : (
-              <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                <p>
-                  ❤️{" "}
-                  {entry.heart_rate !== null
-                    ? `${entry.heart_rate} BPM`
-                    : "No data"}
-                </p>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="flex items-center gap-3">
+                  <HeartPulse
+                    size={20}
+                    className="text-red-500"
+                  />
 
-                <p>
-                  ⚖️{" "}
-                  {entry.weight_kg !== null
-                    ? `${entry.weight_kg} kg`
-                    : "No data"}
-                </p>
+                  <span>
+                    {entry.heart_rate !== null
+                      ? `${entry.heart_rate} BPM`
+                      : "No data"}
+                  </span>
+                </div>
 
-                <p>
-                  👣{" "}
-                  {entry.steps !== null
-                    ? entry.steps.toLocaleString()
-                    : "No data"}
-                </p>
+                <div className="flex items-center gap-3">
+                  <Weight
+                    size={20}
+                    className="text-blue-500"
+                  />
 
-                <p>
-                  😴{" "}
-                  {entry.sleep_hours !== null
-                    ? `${entry.sleep_hours} hours`
-                    : "No data"}
-                </p>
+                  <span>
+                    {entry.weight_kg !== null
+                      ? `${entry.weight_kg} kg`
+                      : "No data"}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Footprints
+                    size={20}
+                    className="text-green-500"
+                  />
+
+                  <span>
+                    {entry.steps !== null
+                      ? entry.steps.toLocaleString()
+                      : "No data"}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Moon
+                    size={20}
+                    className="text-purple-500"
+                  />
+
+                  <span>
+                    {entry.sleep_hours !== null
+                      ? `${entry.sleep_hours} hours`
+                      : "No data"}
+                  </span>
+                </div>
               </div>
             )}
           </div>

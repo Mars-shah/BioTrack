@@ -215,20 +215,24 @@ function Dashboard() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-slate-50 p-8">
-        <p className="text-slate-600">
-          Loading dashboard...
-        </p>
+      <main className="min-h-screen bg-slate-50 px-6 py-10">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-slate-600">
+            Loading dashboard...
+          </p>
+        </div>
       </main>
     );
   }
 
   if (error) {
     return (
-      <main className="min-h-screen bg-slate-50 p-8">
-        <p className="text-red-600">
-          {error}
-        </p>
+      <main className="min-h-screen bg-slate-50 px-6 py-10">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-red-600">
+            {error}
+          </p>
+        </div>
       </main>
     );
   }
@@ -237,7 +241,9 @@ function Dashboard() {
     <main className="min-h-screen bg-slate-50 px-6 py-10">
       <div className="mx-auto max-w-6xl">
         <h1 className="text-3xl font-bold text-slate-900">
-          Welcome back, {data?.user.name}
+          Welcome back,{" "}
+          {data.user.name.charAt(0).toUpperCase() +
+            data.user.name.slice(1)}
         </h1>
 
         <p className="mt-2 text-slate-600">
@@ -264,7 +270,6 @@ function Dashboard() {
                   ? `${data.latest_metrics.heart_rate} BPM`
                   : "No data"
               }
-              icon="❤️"
               color="red"
             />
 
@@ -275,7 +280,6 @@ function Dashboard() {
                   ? `${data.latest_metrics.weight_kg} kg`
                   : "No data"
               }
-              icon="⚖️"
               color="blue"
             />
 
@@ -286,7 +290,6 @@ function Dashboard() {
                   ? data.latest_metrics.steps.toLocaleString()
                   : "No data"
               }
-              icon="👣"
               color="green"
             />
 
@@ -297,14 +300,13 @@ function Dashboard() {
                   ? `${data.latest_metrics.sleep_hours} hours`
                   : "No data"
               }
-              icon="😴"
               color="purple"
             />
           </section>
         )}
 
         <section className="mt-10">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
             This week
           </p>
 
@@ -320,14 +322,12 @@ function Dashboard() {
                   ? "No data"
                   : `${averageHeartRate} BPM`
               }
-              icon="❤️"
               color="red"
             />
 
             <SummaryCard
               title="Weight Change"
               value={formattedWeightChange}
-              icon="⚖️"
               color="blue"
             />
 
@@ -338,7 +338,6 @@ function Dashboard() {
                   ? "No data"
                   : averageSteps.toLocaleString()
               }
-              icon="👣"
               color="green"
             />
 
@@ -349,14 +348,13 @@ function Dashboard() {
                   ? "No data"
                   : `${averageSleep.toFixed(1)} hours`
               }
-              icon="😴"
               color="purple"
             />
           </div>
         </section>
 
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
             Insights
           </p>
 
@@ -384,7 +382,7 @@ function Dashboard() {
         <section className="mt-10">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+              <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
                 Trends
               </p>
 

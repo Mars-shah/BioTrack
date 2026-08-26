@@ -1,5 +1,43 @@
 const API_URL = "http://127.0.0.1:8000";
 
+function getErrorMessage(
+  errorData: unknown,
+  fallback: string,
+): string {
+  if (
+    typeof errorData !== "object" ||
+    errorData === null ||
+    !("detail" in errorData)
+  ) {
+    return fallback;
+  }
+
+  const detail = errorData.detail;
+
+  if (typeof detail === "string") {
+    return detail;
+  }
+
+  if (Array.isArray(detail)) {
+    return detail
+      .map((error) => {
+        if (
+          typeof error === "object" &&
+          error !== null &&
+          "msg" in error &&
+          typeof error.msg === "string"
+        ) {
+          return error.msg;
+        }
+
+        return "Invalid input.";
+      })
+      .join(" ");
+  }
+
+  return fallback;
+}
+
 export async function loginUser(
   email: string,
   password: string,
@@ -19,8 +57,10 @@ export async function loginUser(
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail ||
+      getErrorMessage(
+        errorData,
         "Unable to log in. Please try again.",
+      ),
     );
   }
 
@@ -50,8 +90,10 @@ export async function registerUser(
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail ||
+      getErrorMessage(
+        errorData,
         "Unable to create account.",
+      ),
     );
   }
 
@@ -75,8 +117,10 @@ export async function getDashboard() {
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail ||
+      getErrorMessage(
+        errorData,
         "Unable to load dashboard.",
+      ),
     );
   }
 
@@ -122,8 +166,10 @@ export async function createHealthMetric(
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail ||
+      getErrorMessage(
+        errorData,
         "Unable to save health metrics.",
+      ),
     );
   }
 
@@ -147,8 +193,10 @@ export async function getHealthMetrics(): Promise<HealthMetric[]> {
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail ||
+      getErrorMessage(
+        errorData,
         "Unable to load health history.",
+      ),
     );
   }
 
@@ -181,8 +229,10 @@ export async function updateHealthMetric(
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail ||
+      getErrorMessage(
+        errorData,
         "Unable to update health metric.",
+      ),
     );
   }
 
@@ -212,8 +262,10 @@ export async function deleteHealthMetric(
     const errorData = await response.json().catch(() => null);
 
     throw new Error(
-      errorData?.detail ||
+      getErrorMessage(
+        errorData,
         "Unable to delete health metric.",
+      ),
     );
   }
 }

@@ -49,7 +49,7 @@ Neon — PostgreSQL database
 
 ## Architecture
 
-client/src/assets/biotrack-architecture.svg
+![archictecture of BioTrack](client/src/assets/biotrack-architecture.svg)
 
 Each authenticated user can access only the health records associated with their account. 
 

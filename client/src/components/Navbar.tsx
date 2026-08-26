@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 function Navbar() {
   const navigate = useNavigate();
 
+  const isLoggedIn =
+    localStorage.getItem("access_token") !== null;
+
   function handleLogout() {
     localStorage.removeItem("access_token");
     navigate("/login");
@@ -26,19 +29,39 @@ function Navbar() {
             Home
           </Link>
 
-          <Link
-            to="/dashboard"
-            className="text-sm font-medium text-slate-600 hover:text-blue-600"
-          >
-            Dashboard
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <Link
+                to="/dashboard"
+                className="text-sm font-medium text-slate-600 hover:text-blue-600"
+              >
+                Dashboard
+              </Link>
 
-          <button
-            onClick={handleLogout}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-          >
-            Logout
-          </button>
+              <button
+                onClick={handleLogout}
+                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="text-sm font-medium text-slate-600 hover:text-blue-600"
+              >
+                Login
+              </Link>
+
+              <Link
+                to="/register"
+                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

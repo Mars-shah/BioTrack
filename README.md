@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="client/src/assets/biotrack-logo.svg" alt="BioTrack logo" width="220">
+  <img src="client/src/assets/biotrack-logo.svg" alt="BioTrack logo" width="400">
 </p>
 
 ### About

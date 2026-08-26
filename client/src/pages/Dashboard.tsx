@@ -242,8 +242,10 @@ function Dashboard() {
       <div className="mx-auto max-w-6xl">
         <h1 className="text-3xl font-bold text-slate-900">
           Welcome back,{" "}
-          {data.user.name.charAt(0).toUpperCase() +
-            data.user.name.slice(1)}
+          {data?.user.name
+            ? data.user.name.charAt(0).toUpperCase() +
+              data.user.name.slice(1)
+            : "User"}
         </h1>
 
         <p className="mt-2 text-slate-600">

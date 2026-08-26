@@ -5,6 +5,8 @@ BioTrack is a full-stack health tracking web application that allows users to re
 
 **Live Demo:** https://bio-track-amber.vercel.app
 
+![summarycards](client/src/assets/WebsitePreview-2.svg)
+
 ### Features
 
 User registration and login
@@ -18,6 +20,7 @@ Health trend visualization across multiple time ranges
 Responsive dashboard and landing page
 Persistent PostgreSQL data storage
 
+![charts](client/src/assets/WebsitePreview.svg)
 ### Frontend
 
 React

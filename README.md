@@ -1,5 +1,5 @@
 
-<p align="center">
+<p>
   <img src="client/src/assets/biotrack-logo.svg" alt="BioTrack logo" width="220">
 </p>
 

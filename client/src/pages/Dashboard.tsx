@@ -1,9 +1,10 @@
 import {
-  FormEvent,
   useCallback,
   useEffect,
   useState,
 } from "react";
+
+import type { FormEvent } from "react";
 
 import HealthTrendChart from "../components/HealthTrendChart";
 import SummaryCard from "../components/SummaryCard";
@@ -25,7 +26,6 @@ import {
 } from "../utils/healthStats";
 
 import { generateInsights } from "../utils/healthInsights";
-
 type DashboardData = {
   user: {
     name: string;

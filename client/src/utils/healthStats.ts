@@ -20,7 +20,7 @@ export function getAverageSteps(
 ) {
   const values = weeklyHistory
     .filter((metric) => metric.steps !== null)
-    .map((metric) => metric.steps);
+    .map((metric) => Number(metric.steps));
 
   if (values.length === 0) {
     return null;
@@ -31,7 +31,9 @@ export function getAverageSteps(
     0,
   );
 
-  return Math.round(total / values.length);
+  return Math.round(
+    total / values.length,
+  );
 }
 
 export function getAverageSleep(
@@ -58,7 +60,7 @@ export function getAverageHeartRate(
 ) {
   const values = weeklyHistory
     .filter((metric) => metric.heart_rate !== null)
-    .map((metric) => metric.heart_rate);
+    .map((metric) => Number(metric.heart_rate));
 
   if (values.length === 0) {
     return null;
@@ -69,7 +71,9 @@ export function getAverageHeartRate(
     0,
   );
 
-  return Math.round(total / values.length);
+  return Math.round(
+    total / values.length,
+  );
 }
 
 export function getWeeklyWeightChange(

@@ -119,6 +119,10 @@ function Dashboard() {
     }
   }
 
+  // ------------------------------------------------
+  // CHART DATA
+  // ------------------------------------------------
+
   const chronologicalHistory = [...healthHistory].reverse();
 
   const weightChartData = chronologicalHistory
@@ -131,7 +135,6 @@ function Dashboard() {
           day: "numeric",
         },
       ),
-
       value: Number(metric.weight_kg),
     }));
 
@@ -145,45 +148,57 @@ function Dashboard() {
           day: "numeric",
         },
       ),
-
       value: Number(metric.heart_rate),
     }));
 
-  // Weekly statistics
+  // ------------------------------------------------
+  // WEEKLY DATA
+  // ------------------------------------------------
+
   const sevenDaysAgo = new Date();
 
   sevenDaysAgo.setDate(
-    sevenDaysAgo.getDate() - 7
+    sevenDaysAgo.getDate() - 7,
   );
 
   const weeklyHistory = healthHistory.filter(
     (metric) =>
-      new Date(metric.recorded_at) >= sevenDaysAgo
+      new Date(metric.recorded_at) >= sevenDaysAgo,
   );
 
-  // Average steps
+  // ------------------------------------------------
+  // AVERAGE STEPS
+  // ------------------------------------------------
+
   const stepValues = weeklyHistory
     .filter((metric) => metric.steps !== null)
     .map((metric) => metric.steps);
 
   const totalSteps = stepValues.reduce(
     (total, step) => total + step,
-    0
+    0,
   );
 
   const averageSteps =
     stepValues.length === 0
       ? 0
-      : Math.round(totalSteps / stepValues.length);
+      : Math.round(
+          totalSteps / stepValues.length,
+        );
 
-  // Average sleep
+  // ------------------------------------------------
+  // AVERAGE SLEEP
+  // ------------------------------------------------
+
   const sleepValues = weeklyHistory
     .filter((metric) => metric.sleep_hours !== null)
-    .map((metric) => Number(metric.sleep_hours));
+    .map((metric) =>
+      Number(metric.sleep_hours),
+    );
 
   const totalSleep = sleepValues.reduce(
     (total, sleep) => total + sleep,
-    0
+    0,
   );
 
   const averageSleep =
@@ -194,29 +209,39 @@ function Dashboard() {
   const formattedAverageSleep =
     averageSleep.toFixed(1);
 
-  // Average heart rate
+  // ------------------------------------------------
+  // AVERAGE HEART RATE
+  // ------------------------------------------------
+
   const heartRateValues = weeklyHistory
     .filter((metric) => metric.heart_rate !== null)
     .map((metric) => metric.heart_rate);
 
   const totalHeartRate = heartRateValues.reduce(
-    (total, heartRate) => total + heartRate,
-    0
+    (total, currentHeartRate) =>
+      total + currentHeartRate,
+    0,
   );
 
   const averageHeartRate =
     heartRateValues.length === 0
       ? 0
       : Math.round(
-          totalHeartRate / heartRateValues.length
+          totalHeartRate /
+            heartRateValues.length,
         );
 
-  // Weekly weight change
+  // ------------------------------------------------
+  // WEEKLY WEIGHT CHANGE
+  // ------------------------------------------------
+
   const weeklyWeightValues = weeklyHistory
     .filter((metric) => metric.weight_kg !== null)
     .map((metric) => ({
       weight: Number(metric.weight_kg),
-      recordedAt: new Date(metric.recorded_at),
+      recordedAt: new Date(
+        metric.recorded_at,
+      ),
     }))
     .sort(
       (a, b) =>
@@ -229,14 +254,66 @@ function Dashboard() {
       ? null
       : weeklyWeightValues[
           weeklyWeightValues.length - 1
-        ].weight - weeklyWeightValues[0].weight;
+        ].weight -
+        weeklyWeightValues[0].weight;
 
   const formattedWeightChange =
     weeklyWeightChange === null
       ? "Not enough data"
-      : `${weeklyWeightChange > 0 ? "+" : ""}${weeklyWeightChange.toFixed(
-          1,
-        )} kg`;
+      : `${
+          weeklyWeightChange > 0 ? "+" : ""
+        }${weeklyWeightChange.toFixed(1)} kg`;
+
+  // ------------------------------------------------
+  // WEEKLY INSIGHTS
+  // ------------------------------------------------
+
+  const insights: string[] = [];
+
+  if (
+    averageSleep > 0 &&
+    averageSleep < 7
+  ) {
+    insights.push(
+      "Your average sleep this week is below 7 hours.",
+    );
+  }
+
+  if (
+    averageSteps > 0 &&
+    averageSteps < 7000
+  ) {
+    insights.push(
+      "Your average daily steps are below 7,000 this week.",
+    );
+  }
+
+  if (
+    weeklyWeightChange !== null &&
+    Math.abs(weeklyWeightChange) >= 2
+  ) {
+    insights.push(
+      `Your weight changed by ${Math.abs(
+        weeklyWeightChange,
+      ).toFixed(1)} kg this week.`,
+    );
+  }
+
+  if (averageHeartRate > 0) {
+    insights.push(
+      `Your average recorded heart rate this week is ${averageHeartRate} BPM.`,
+    );
+  }
+
+  if (insights.length === 0) {
+    insights.push(
+      "Keep logging your health metrics to build more useful weekly insights.",
+    );
+  }
+
+  // ------------------------------------------------
+  // LOADING / ERROR
+  // ------------------------------------------------
 
   if (isLoading) {
     return (
@@ -261,13 +338,19 @@ function Dashboard() {
   return (
     <main className="min-h-screen bg-slate-50 px-6 py-10">
       <div className="mx-auto max-w-6xl">
+
+        {/* HEADER */}
+
         <h1 className="text-3xl font-bold text-slate-900">
           Welcome back, {data?.user.name}
         </h1>
 
         <p className="mt-2 text-slate-600">
-          Review your latest health measurements and track your progress.
+          Review your latest health measurements
+          and track your progress.
         </p>
+
+        {/* LATEST METRICS */}
 
         {!data?.latest_metrics ? (
           <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -276,11 +359,13 @@ function Dashboard() {
             </h2>
 
             <p className="mt-2 text-slate-600">
-              Add your first health measurement to begin tracking your progress.
+              Add your first health measurement
+              to begin tracking your progress.
             </p>
           </div>
         ) : (
           <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
             <SummaryCard
               title="Heart Rate"
               value={
@@ -324,10 +409,14 @@ function Dashboard() {
               icon="😴"
               color="purple"
             />
+
           </section>
         )}
 
+        {/* WEEKLY SUMMARY */}
+
         <section className="mt-10">
+
           <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
             This week
           </p>
@@ -337,41 +426,82 @@ function Dashboard() {
           </h2>
 
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <SummaryCard
-              title="Average Steps"
-              value={averageSteps.toLocaleString()}
-              icon="👣"
-              color="green"
-            />
-
-            <SummaryCard
-              title="Average Sleep"
-              value={`${formattedAverageSleep} hours`}
-              icon="😴"
-              color="purple"
-            />
-
-            <SummaryCard
+              <SummaryCard
               title="Average Heart Rate"
               value={
                 averageHeartRate === 0
                   ? "No data"
                   : `${averageHeartRate} BPM`
               }
-              icon="❤️"
               color="red"
             />
 
             <SummaryCard
               title="Weight Change"
               value={formattedWeightChange}
-              icon="⚖️"
               color="blue"
             />
+
+            <SummaryCard
+              title="Average Steps"
+              value={
+                stepValues.length === 0
+                  ? "No data"
+                  : averageSteps.toLocaleString()
+              }
+              color="green"
+            />
+
+            <SummaryCard
+              title="Average Sleep"
+              value={
+                sleepValues.length === 0
+                  ? "No data"
+                  : `${formattedAverageSleep} hours`
+              }
+              color="purple"
+            />
+
           </div>
         </section>
 
+        {/* INSIGHTS */}
+
+        <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+
+          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+            Insights
+          </p>
+
+          <h2 className="mt-2 text-2xl font-bold text-slate-900">
+            Weekly observations
+          </h2>
+
+          <p className="mt-2 text-slate-600">
+            Note: These observations are based on the
+            health data you entered and are not
+            medical advice.
+          </p>
+
+          <div className="mt-6 space-y-3">
+            {insights.map(
+              (insight, index) => (
+                <div
+                  key={index}
+                  className="rounded-xl bg-slate-50 px-4 py-3 text-slate-700"
+                >
+                  {insight}
+                </div>
+              ),
+            )}
+          </div>
+
+        </section>
+
+        {/* TRENDS */}
+
         <section className="mt-10">
+
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
               Trends
@@ -382,11 +512,13 @@ function Dashboard() {
             </h2>
 
             <p className="mt-2 text-slate-600">
-              Review how your measurements have changed over time.
+              Review how your measurements have
+              changed over time.
             </p>
           </div>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
+
             <HealthTrendChart
               title="Weight trend"
               unit="kg"
@@ -398,10 +530,14 @@ function Dashboard() {
               unit="BPM"
               data={heartRateChartData}
             />
+
           </div>
         </section>
 
+        {/* ADD METRICS */}
+
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+
           <h2 className="text-xl font-semibold text-slate-900">
             Add health metrics
           </h2>
@@ -414,6 +550,7 @@ function Dashboard() {
             onSubmit={handleMetricSubmit}
             className="mt-6 grid gap-5 sm:grid-cols-2"
           >
+
             <MetricInput
               label="Heart rate"
               value={heartRate}
@@ -463,10 +600,14 @@ function Dashboard() {
               disabled={isSaving}
               className="rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
             >
-              {isSaving ? "Saving..." : "Save metrics"}
+              {isSaving
+                ? "Saving..."
+                : "Save metrics"}
             </button>
+
           </form>
         </section>
+
       </div>
     </main>
   );
@@ -493,6 +634,7 @@ function MetricInput({
 }: MetricInputProps) {
   return (
     <div>
+
       <label className="mb-2 block text-sm font-medium text-slate-700">
         {label}
       </label>
@@ -509,6 +651,7 @@ function MetricInput({
         step={step}
         className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
       />
+
     </div>
   );
 }

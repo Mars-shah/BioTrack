@@ -221,4 +221,4 @@ No `.env` files or production secrets should be committed to the repository.
 
 BioTrack is intended for personal health tracking and informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. 
 
-_Created by Marut S. _
+_Created by Marut S._

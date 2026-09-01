@@ -1,273 +1,305 @@
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 import {
-  Activity,
-  ArrowRight,
-  Footprints,
-  HeartPulse,
-  Moon,
-  ShieldCheck,
-  TrendingUp,
-  Weight,
+ Activity,
+ ArrowRight,
+ Footprints,
+ HeartPulse,
+ Moon,
+ ShieldCheck,
+ TrendingUp,
+ Weight,
 } from "lucide-react";
 
+
 function Home() {
-  return (
-    <main className="bg-white">
-      <section className="px-6 py-10">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
-              Personal health tracking
-            </p>
+ return (
+   <main className="bg-red-50">
+     <section className="px-6 py-10">
+       <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-2">
+         <div className="lg:pt-8">
+           <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
+             Personal health tracking
+           </p>
 
-            <h1 className="mt-4 max-w-xl text-5xl font-bold leading-tight text-slate-900">
-              Your health data,
-              <span className="text-teal-700"> made clearer.</span>
-            </h1>
 
-            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-              Track heart rate, weight, steps, and sleep in one place.
-              Review weekly summaries, follow trends, and keep your health
-              history organized.
-            </p>
+           <h1 className="mt-4 max-w-xl text-5xl font-bold leading-tight text-slate-900">
+             Your health data,
+             <span className="text-teal-700"> made clearer.</span>
+           </h1>
 
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                to="/register"
-                className="inline-flex items-center gap-2 rounded-lg bg-teal-700 px-6 py-3 font-semibold text-white transition hover:bg-teal-800"
-              >
-                Get started
-                <ArrowRight size={18} />
-              </Link>
 
-              <Link
-                to="/login"
-                className="rounded-lg border border-slate-300 px-6 py-3 font-semibold text-slate-700 transition hover:border-teal-300 hover:bg-teal-50 hover:text-teal-800"
-              >
-                Log in
-              </Link>
-            </div>
+           <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+             Track heart rate, weight, steps, and sleep in one place.
+             Review weekly summaries, follow trends, and keep your health
+             history organized.
+           </p>
 
-            <div className="mt-7 flex flex-wrap gap-6 text-sm text-slate-500">
-              <div className="flex items-center gap-2">
-                <ShieldCheck
-                  size={17}
-                  className="text-teal-700"
-                />
-                Secure account access
-              </div>
 
-              <div className="flex items-center gap-2">
-                <TrendingUp
-                  size={17}
-                  className="text-teal-700"
-                />
-                Track changes over time
-              </div>
-            </div>
-          </div>
+           <div className="mt-8 flex flex-wrap gap-4">
+             <Link
+               to="/register"
+               className="inline-flex items-center gap-2 rounded-lg bg-teal-700 px-6 py-3 font-semibold text-white transition hover:bg-teal-800"
+             >
+               Get started
+               <ArrowRight size={18} />
+             </Link>
 
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                  Health overview
-                </p>
 
-                <h2 className="mt-1 text-xl font-bold text-slate-900">
-                  Your dashboard
-                </h2>
-              </div>
+             <Link
+               to="/login"
+               className="rounded-lg border border-slate-300 px-6 py-3 font-semibold text-slate-700 transition hover:border-teal-300 hover:bg-teal-50 hover:text-teal-800"
+             >
+               Log in
+             </Link>
+           </div>
 
-              <div className="rounded-xl bg-teal-100 p-3 text-teal-700">
-                <Activity size={24} />
-              </div>
-            </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-4">
-              <div className="rounded-2xl border border-red-100 bg-red-50 p-5">
-                <HeartPulse
-                  size={24}
-                  className="text-red-500"
-                />
+           <div className="mt-7 flex flex-wrap gap-6 text-sm text-slate-500">
+             <div className="flex items-center gap-2">
+               <ShieldCheck
+                 size={17}
+                 className="text-teal-700"
+               />
+               Secure account access
+             </div>
 
-                <p className="mt-4 text-sm font-medium text-slate-500">
-                  Heart Rate
-                </p>
 
-                <p className="mt-1 text-2xl font-bold text-slate-900">
-                  72 BPM
-                </p>
-              </div>
+             <div className="flex items-center gap-2">
+               <TrendingUp
+                 size={17}
+                 className="text-teal-700"
+               />
+               Track changes over time
+             </div>
+           </div>
+         </div>
 
-              <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
-                <Weight
-                  size={24}
-                  className="text-blue-500"
-                />
 
-                <p className="mt-4 text-sm font-medium text-slate-500">
-                  Weight
-                </p>
+         <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 shadow-sm">
+           <div className="flex items-center justify-between">
+             <div>
+               <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                 Health overview
+               </p>
 
-                <p className="mt-1 text-2xl font-bold text-slate-900">
-                  74.5 kg
-                </p>
-              </div>
 
-              <div className="rounded-2xl border border-green-100 bg-green-50 p-5">
-                <Footprints
-                  size={24}
-                  className="text-green-500"
-                />
+               <h2 className="mt-1 text-xl font-bold text-slate-900">
+                 Your dashboard
+               </h2>
+             </div>
 
-                <p className="mt-4 text-sm font-medium text-slate-500">
-                  Steps
-                </p>
 
-                <p className="mt-1 text-2xl font-bold text-slate-900">
-                  8,240
-                </p>
-              </div>
+             <div className="rounded-xl bg-teal-100 p-3 text-teal-700">
+               <Activity size={24} />
+             </div>
+           </div>
 
-              <div className="rounded-2xl border border-purple-100 bg-purple-50 p-5">
-                <Moon
-                  size={24}
-                  className="text-purple-500"
-                />
 
-                <p className="mt-4 text-sm font-medium text-slate-500">
-                  Sleep
-                </p>
+           <div className="mt-6 grid grid-cols-2 gap-4">
+             <div className="rounded-2xl border border-red-100 bg-red-50 p-5">
+               <HeartPulse
+                 size={24}
+                 className="text-red-500"
+               />
 
-                <p className="mt-1 text-2xl font-bold text-slate-900">
-                  7.5 hrs
-                </p>
-              </div>
-            </div>
 
-            <div className="mt-4 flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-5">
-              <TrendingUp
-                size={22}
-                className="shrink-0 text-teal-700"
-              />
+               <p className="mt-4 text-sm font-medium text-slate-500">
+                 Heart Rate
+               </p>
 
-              <div>
-                <p className="font-semibold text-slate-900">
-                  Follow your trends
-                </p>
 
-                <p className="text-sm text-slate-500">
-                  Compare your measurements across 7 days, 30 days,
-                  or your full history.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+               <p className="mt-1 text-2xl font-bold text-slate-900">
+                 72 BPM
+               </p>
+             </div>
 
-      <section className="border-y border-slate-200 bg-slate-50 px-6 py-16">
-        <div className="mx-auto max-w-6xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
-            One simple dashboard
-          </p>
 
-          <h2 className="mt-3 text-3xl font-bold text-slate-900">
-            Track. Understand. Improve.
-          </h2>
+             <div className="rounded-2xl border border-blue-100 bg-blue-50 p-5">
+               <Weight
+                 size={24}
+                 className="text-blue-500"
+               />
 
-          <p className="mx-auto mt-4 max-w-2xl text-slate-600">
-            BioTrack turns individual health measurements into an organized
-            history you can actually follow.
-          </p>
 
-          <div className="mt-10 grid gap-6 text-left md:grid-cols-3">
-            <div className="rounded-xl border border-slate-200 bg-white p-7">
-              <div className="inline-flex rounded-lg bg-teal-50 p-3 text-teal-700">
-                <Activity size={25} />
-              </div>
+               <p className="mt-4 text-sm font-medium text-slate-500">
+                 Weight
+               </p>
 
-              <h3 className="mt-5 text-lg font-bold text-slate-900">
-                Track your health
-              </h3>
 
-              <p className="mt-3 leading-7 text-slate-600">
-                Record heart rate, weight, steps, and sleep whenever
-                you need.
-              </p>
-            </div>
+               <p className="mt-1 text-2xl font-bold text-slate-900">
+                 74.5 kg
+               </p>
+             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-white p-7">
-              <div className="inline-flex rounded-lg bg-teal-50 p-3 text-teal-700">
-                <TrendingUp size={25} />
-              </div>
 
-              <h3 className="mt-5 text-lg font-bold text-slate-900">
-                Follow your progress
-              </h3>
+             <div className="rounded-2xl border border-green-100 bg-green-50 p-5">
+               <Footprints
+                 size={24}
+                 className="text-green-500"
+               />
 
-              <p className="mt-3 leading-7 text-slate-600">
-                Review weekly averages and trends across different
-                time periods.
-              </p>
-            </div>
 
-            <div className="rounded-xl border border-slate-200 bg-white p-7">
-              <div className="inline-flex rounded-lg bg-teal-50 p-3 text-teal-700">
-                <ShieldCheck size={25} />
-              </div>
+               <p className="mt-4 text-sm font-medium text-slate-500">
+                 Steps
+               </p>
 
-              <h3 className="mt-5 text-lg font-bold text-slate-900">
-                Keep it personal
-              </h3>
 
-              <p className="mt-3 leading-7 text-slate-600">
-                Your health history is connected to your authenticated
-                account.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+               <p className="mt-1 text-2xl font-bold text-slate-900">
+                 8,240
+               </p>
+             </div>
 
-      <section className="px-6 py-14">
-        <div className="mx-auto max-w-6xl border-y border-slate-200 py-12">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-xl">
-              <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
-                Start tracking
-              </p>
 
-              <h2 className="mt-3 text-3xl font-bold text-slate-900">
-                Build a health history you can actually follow.
-              </h2>
+             <div className="rounded-2xl border border-purple-100 bg-purple-50 p-5">
+               <Moon
+                 size={24}
+                 className="text-purple-500"
+               />
 
-              <p className="mt-4 leading-7 text-slate-600">
-                Create an account, add your first measurements, and start
-                seeing your trends over time.
-              </p>
-            </div>
 
-            <Link
-              to="/register"
-              className="inline-flex w-fit items-center gap-2 rounded-lg bg-teal-700 px-6 py-3 font-semibold text-white transition hover:bg-teal-800"
-            >
-              Create account
-              <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
+               <p className="mt-4 text-sm font-medium text-slate-500">
+                 Sleep
+               </p>
 
-        <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-5 text-slate-400">
-          BioTrack is intended for personal health tracking and informational
-          purposes only. It is not a substitute for professional medical
-          advice, diagnosis, or treatment.
-        </p>
-      </section>
-    </main>
-  );
+
+               <p className="mt-1 text-2xl font-bold text-slate-900">
+                 7.5 hrs
+               </p>
+             </div>
+           </div>
+
+
+           <div className="mt-4 flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-5">
+             <TrendingUp
+               size={22}
+               className="shrink-0 text-teal-700"
+             />
+
+
+             <div>
+               <p className="font-semibold text-slate-900">
+                 Follow your trends
+               </p>
+
+
+               <p className="text-sm text-slate-500">
+                 Compare your measurements across 7 days, 30 days,
+                 or your full history.
+               </p>
+             </div>
+           </div>
+         </div>
+       </div>
+     </section>
+
+
+     <section className="border-y border-slate-200 bg-slate-50 px-6 py-16">
+       <div className="mx-auto max-w-6xl text-center">
+         <h2 className="mt-3 text-3xl font-bold text-slate-900">
+           Track. Understand. Improve.
+         </h2>
+
+
+         <p className="mx-auto mt-4 max-w-2xl text-slate-600">
+           BioTrack turns individual health measurements into an organized
+           history you can actually follow.
+         </p>
+
+
+         <div className="mt-10 grid gap-6 text-left md:grid-cols-3">
+           <div className="rounded-xl border border-slate-200 bg-white p-7">
+             <div className="inline-flex rounded-lg bg-teal-50 p-3 text-teal-700">
+               <Activity size={25} />
+             </div>
+
+
+             <h3 className="mt-5 text-lg font-bold text-slate-900">
+               Track your health
+             </h3>
+
+
+             <p className="mt-3 leading-7 text-slate-600">
+               Record heart rate, weight, steps, and sleep whenever
+               you need.
+             </p>
+           </div>
+
+
+           <div className="rounded-xl border border-slate-200 bg-white p-7">
+             <div className="inline-flex rounded-lg bg-teal-50 p-3 text-teal-700">
+               <TrendingUp size={25} />
+             </div>
+
+
+             <h3 className="mt-5 text-lg font-bold text-slate-900">
+               Follow your progress
+             </h3>
+
+
+             <p className="mt-3 leading-7 text-slate-600">
+               Review weekly averages and trends across different
+               time periods.
+             </p>
+           </div>
+
+
+           <div className="rounded-xl border border-slate-200 bg-white p-7">
+             <div className="inline-flex rounded-lg bg-teal-50 p-3 text-teal-700">
+               <ShieldCheck size={25} />
+             </div>
+
+
+             <h3 className="mt-5 text-lg font-bold text-slate-900">
+               Keep it personal
+             </h3>
+
+
+             <p className="mt-3 leading-7 text-slate-600">
+               Your health history is connected to your authenticated
+               account.
+             </p>
+           </div>
+         </div>
+       </div>
+     </section>
+
+
+     <section className="px-6 py-14">
+       <div className="mx-auto max-w-6xl border-y border-slate-200 py-12">
+         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+           <div className="max-w-xl">
+             <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
+               Start tracking
+             </p>
+
+
+             <h2 className="mt-3 text-3xl font-bold text-slate-900">
+               Build a health history you can actually follow.
+             </h2>
+
+
+             <p className="mt-4 leading-7 text-slate-600">
+               Create an account, add your first measurements, and start
+               seeing your trends over time.
+             </p>
+           </div>
+
+
+           <Link
+             to="/register"
+             className="inline-flex w-fit items-center gap-2 rounded-lg bg-teal-700 px-6 py-3 font-semibold text-white transition hover:bg-teal-800"
+           >
+             Create account
+             <ArrowRight size={18} />
+           </Link>
+         </div>
+       </div>
+     </section>
+     <Footer />
+   </main>
+ );
 }
 
 export default Home;

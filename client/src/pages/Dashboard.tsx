@@ -26,6 +26,7 @@ import {
 } from "../utils/healthStats";
 
 import { generateInsights } from "../utils/healthInsights";
+import Footer from "../components/Footer";
 type DashboardData = {
   user: {
     name: string;
@@ -510,6 +511,7 @@ function Dashboard() {
           </form>
         </section>
       </div>
+      <Footer />
     </main>
   );
 }

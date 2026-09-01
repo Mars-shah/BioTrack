@@ -20,7 +20,7 @@ function Navbar() {
           <img
             src={logo}
             alt="BioTrack"
-            className="h-28 w-auto"
+            className="-ml-8 h-28 w-auto"
           />
         </Link>
 
@@ -56,13 +56,6 @@ function Navbar() {
                 className="text-sm font-medium text-slate-600 hover:text-red-600"
               >
                 Login
-              </Link>
-
-              <Link
-                to="/register"
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
-              >
-                Register
               </Link>
             </>
           )}

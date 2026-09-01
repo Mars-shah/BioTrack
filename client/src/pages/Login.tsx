@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { loginUser } from "../services/api";
 
@@ -37,8 +37,8 @@ function Login() {
   }
 
   return (
-    <main className="flex min-h-[calc(100vh-73px)] items-center justify-center bg-slate-50 px-6">
-      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+    <main className="flex min-h-[calc(100vh-73px)] items-center justify-center px-6">
+      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8">
         <h1 className="text-3xl font-bold text-slate-900">
           Welcome back
         </h1>
@@ -63,7 +63,7 @@ function Login() {
               onChange={(event) => setEmail(event.target.value)}
               required
               autoComplete="email"
-              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-teal-700"
+              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 outline-none transition focus:border-teal-700"
             />
           </div>
 
@@ -82,7 +82,7 @@ function Login() {
               onChange={(event) => setPassword(event.target.value)}
               required
               autoComplete="current-password"
-              className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-teal-700"
+              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 outline-none transition focus:border-teal-700"
             />
           </div>
 
@@ -95,11 +95,21 @@ function Login() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-lg bg-teal-700 px-4 py-3 font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-lg bg-teal-700 px-4 py-3 font-semibold text-white transition hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isLoading ? "Logging in..." : "Log in"}
           </button>
         </form>
+
+        <p className="mt-6 text-center text-sm text-slate-500">
+          Don&apos;t have an account?{" "}
+          <Link
+            to="/register"
+            className="font-semibold text-teal-700 transition hover:text-teal-800"
+          >
+            Create one
+          </Link>
+        </p>
       </div>
     </main>
   );

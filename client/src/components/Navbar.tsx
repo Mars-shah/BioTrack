@@ -25,13 +25,6 @@ function Navbar() {
         </Link>
 
         <div className="flex items-center gap-6">
-          <Link
-            to="/"
-            className="text-sm font-medium text-slate-600 transition hover:text-red-600"
-          >
-            Home
-          </Link>
-
           {isLoggedIn ? (
             <>
               <Link
@@ -50,12 +43,21 @@ function Navbar() {
               </button>
             </>
           ) : (
-            <Link
-              to="/login"
-              className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700"
-            >
-              Login
-            </Link>
+            <>
+              <Link
+                to="/"
+                className="text-sm font-medium text-slate-600 transition hover:text-red-600"
+              >
+                Home
+              </Link>
+
+              <Link
+                to="/login"
+                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700"
+              >
+                Login
+              </Link>
+            </>
           )}
         </div>
       </div>

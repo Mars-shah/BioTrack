@@ -15,7 +15,7 @@ import {
 
 function Home() {
  return (
-   <main className="bg-red-50">
+   <main className="bg-white">
      <section className="px-6 py-10">
        <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-2">
          <div className="lg:pt-8">

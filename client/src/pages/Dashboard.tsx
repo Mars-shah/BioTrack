@@ -9,6 +9,7 @@ import type { FormEvent } from "react";
 import HealthTrendChart from "../components/HealthTrendChart";
 import SummaryCard from "../components/SummaryCard";
 import RecentEntries from "../components/RecentEntries";
+import Footer from "../components/Footer";
 
 import {
   createHealthMetric,
@@ -26,7 +27,7 @@ import {
 } from "../utils/healthStats";
 
 import { generateInsights } from "../utils/healthInsights";
-import Footer from "../components/Footer";
+
 type DashboardData = {
   user: {
     name: string;
@@ -144,7 +145,6 @@ function Dashboard() {
     }
 
     const days = chartRange === "7d" ? 7 : 30;
-
     const startDate = new Date(now);
 
     startDate.setDate(
@@ -216,7 +216,7 @@ function Dashboard() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-slate-50 px-6 py-10">
+      <main className="min-h-screen px-6 py-10">
         <div className="mx-auto max-w-6xl">
           <p className="text-slate-600">
             Loading dashboard...
@@ -228,7 +228,7 @@ function Dashboard() {
 
   if (error) {
     return (
-      <main className="min-h-screen bg-slate-50 px-6 py-10">
+      <main className="min-h-screen px-6 py-10">
         <div className="mx-auto max-w-6xl">
           <p className="text-red-600">
             {error}
@@ -239,280 +239,283 @@ function Dashboard() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-6 py-10">
-      <div className="mx-auto max-w-6xl">
-        <h1 className="text-3xl font-bold text-slate-900">
-          Welcome back,{" "}
-          {data?.user.name
-            ? data.user.name.charAt(0).toUpperCase() +
-              data.user.name.slice(1)
-            : "User"}
-        </h1>
-
-        <p className="mt-2 text-slate-600">
-          Review your latest health measurements and track your progress.
-        </p>
-
-        {!data?.latest_metrics ? (
-          <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900">
-              No health data yet
-            </h2>
-
-            <p className="mt-2 text-slate-600">
-              Add your first health measurement to begin tracking your
-              progress.
-            </p>
-          </div>
-        ) : (
-          <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <SummaryCard
-              title="Heart Rate"
-              value={
-                data.latest_metrics.heart_rate !== null
-                  ? `${data.latest_metrics.heart_rate} BPM`
-                  : "No data"
-              }
-              color="red"
-            />
-
-            <SummaryCard
-              title="Weight"
-              value={
-                data.latest_metrics.weight_kg !== null
-                  ? `${data.latest_metrics.weight_kg} kg`
-                  : "No data"
-              }
-              color="blue"
-            />
-
-            <SummaryCard
-              title="Steps"
-              value={
-                data.latest_metrics.steps !== null
-                  ? data.latest_metrics.steps.toLocaleString()
-                  : "No data"
-              }
-              color="green"
-            />
-
-            <SummaryCard
-              title="Sleep"
-              value={
-                data.latest_metrics.sleep_hours !== null
-                  ? `${data.latest_metrics.sleep_hours} hours`
-                  : "No data"
-              }
-              color="purple"
-            />
-          </section>
-        )}
-
-        <section className="mt-10">
-          <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
-            This week
-          </p>
-
-          <h2 className="mt-2 text-2xl font-bold text-slate-900">
-            Weekly summary
-          </h2>
-
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <SummaryCard
-              title="Average Heart Rate"
-              value={
-                averageHeartRate === null
-                  ? "No data"
-                  : `${averageHeartRate} BPM`
-              }
-              color="red"
-            />
-
-            <SummaryCard
-              title="Weight Change"
-              value={formattedWeightChange}
-              color="blue"
-            />
-
-            <SummaryCard
-              title="Average Steps"
-              value={
-                averageSteps === null
-                  ? "No data"
-                  : averageSteps.toLocaleString()
-              }
-              color="green"
-            />
-
-            <SummaryCard
-              title="Average Sleep"
-              value={
-                averageSleep === null
-                  ? "No data"
-                  : `${averageSleep.toFixed(1)} hours`
-              }
-              color="purple"
-            />
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
-            Insights
-          </p>
-
-          <h2 className="mt-2 text-2xl font-bold text-slate-900">
-            Weekly observations
-          </h2>
+    <>
+      <main className="min-h-screen px-6 py-10">
+        <div className="mx-auto max-w-6xl">
+          <h1 className="text-3xl font-bold text-slate-900">
+            Welcome back,{" "}
+            {data?.user.name
+              ? data.user.name.charAt(0).toUpperCase() +
+                data.user.name.slice(1)
+              : "User"}
+          </h1>
 
           <p className="mt-2 text-slate-600">
-            Note: These observations are based on the health data you entered
-            and are not medical advice.
+            Review your latest health measurements and track your progress.
           </p>
 
-          <div className="mt-6 space-y-3">
-            {insights.map((insight, index) => (
-              <div
-                key={index}
-                className="rounded-xl bg-slate-50 px-4 py-3 text-slate-700"
-              >
-                {insight}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-10">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
-                Trends
-              </p>
-
-              <h2 className="mt-2 text-2xl font-bold text-slate-900">
-                Your health history
+          {!data?.latest_metrics ? (
+            <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+              <h2 className="text-xl font-semibold text-slate-900">
+                No health data yet
               </h2>
 
               <p className="mt-2 text-slate-600">
-                Review how your measurements have changed over time.
+                Add your first health measurement to begin tracking your
+                progress.
               </p>
             </div>
-
-            <div className="flex rounded-lg border border-slate-200 bg-white p-1">
-              <ChartRangeButton
-                label="7 Days"
-                value="7d"
-                selected={chartRange}
-                onChange={setChartRange}
+          ) : (
+            <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <SummaryCard
+                title="Heart Rate"
+                value={
+                  data.latest_metrics.heart_rate !== null
+                    ? `${data.latest_metrics.heart_rate} BPM`
+                    : "No data"
+                }
+                color="red"
               />
 
-              <ChartRangeButton
-                label="30 Days"
-                value="30d"
-                selected={chartRange}
-                onChange={setChartRange}
+              <SummaryCard
+                title="Weight"
+                value={
+                  data.latest_metrics.weight_kg !== null
+                    ? `${data.latest_metrics.weight_kg} kg`
+                    : "No data"
+                }
+                color="blue"
               />
 
-              <ChartRangeButton
-                label="All Time"
-                value="all"
-                selected={chartRange}
-                onChange={setChartRange}
+              <SummaryCard
+                title="Steps"
+                value={
+                  data.latest_metrics.steps !== null
+                    ? data.latest_metrics.steps.toLocaleString()
+                    : "No data"
+                }
+                color="green"
+              />
+
+              <SummaryCard
+                title="Sleep"
+                value={
+                  data.latest_metrics.sleep_hours !== null
+                    ? `${data.latest_metrics.sleep_hours} hours`
+                    : "No data"
+                }
+                color="purple"
+              />
+            </section>
+          )}
+
+          <section className="mt-10">
+            <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
+              This week
+            </p>
+
+            <h2 className="mt-2 text-2xl font-bold text-slate-900">
+              Weekly summary
+            </h2>
+
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <SummaryCard
+                title="Average Heart Rate"
+                value={
+                  averageHeartRate === null
+                    ? "No data"
+                    : `${averageHeartRate} BPM`
+                }
+                color="red"
+              />
+
+              <SummaryCard
+                title="Weight Change"
+                value={formattedWeightChange}
+                color="blue"
+              />
+
+              <SummaryCard
+                title="Average Steps"
+                value={
+                  averageSteps === null
+                    ? "No data"
+                    : averageSteps.toLocaleString()
+                }
+                color="green"
+              />
+
+              <SummaryCard
+                title="Average Sleep"
+                value={
+                  averageSleep === null
+                    ? "No data"
+                    : `${averageSleep.toFixed(1)} hours`
+                }
+                color="purple"
               />
             </div>
-          </div>
+          </section>
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-2">
-            <HealthTrendChart
-              title="Weight trend"
-              unit="kg"
-              data={weightChartData}
+          <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
+              Insights
+            </p>
+
+            <h2 className="mt-2 text-2xl font-bold text-slate-900">
+              Weekly observations
+            </h2>
+
+            <p className="mt-2 text-slate-600">
+              Note: These observations are based on the health data you entered
+              and are not medical advice.
+            </p>
+
+            <div className="mt-6 space-y-3">
+              {insights.map((insight, index) => (
+                <div
+                  key={index}
+                  className="rounded-xl bg-slate-50 px-4 py-3 text-slate-700"
+                >
+                  {insight}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-10">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
+                  Trends
+                </p>
+
+                <h2 className="mt-2 text-2xl font-bold text-slate-900">
+                  Your health history
+                </h2>
+
+                <p className="mt-2 text-slate-600">
+                  Review how your measurements have changed over time.
+                </p>
+              </div>
+
+              <div className="flex rounded-lg border border-slate-200 bg-white p-1">
+                <ChartRangeButton
+                  label="7 Days"
+                  value="7d"
+                  selected={chartRange}
+                  onChange={setChartRange}
+                />
+
+                <ChartRangeButton
+                  label="30 Days"
+                  value="30d"
+                  selected={chartRange}
+                  onChange={setChartRange}
+                />
+
+                <ChartRangeButton
+                  label="All Time"
+                  value="all"
+                  selected={chartRange}
+                  onChange={setChartRange}
+                />
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-6 lg:grid-cols-2">
+              <HealthTrendChart
+                title="Weight trend"
+                unit="kg"
+                data={weightChartData}
+              />
+
+              <HealthTrendChart
+                title="Heart-rate trend"
+                unit="BPM"
+                data={heartRateChartData}
+              />
+            </div>
+          </section>
+
+          <section className="mt-10">
+            <RecentEntries
+              entries={healthHistory}
+              onChange={loadDashboard}
             />
+          </section>
 
-            <HealthTrendChart
-              title="Heart-rate trend"
-              unit="BPM"
-              data={heartRateChartData}
-            />
-          </div>
-        </section>
+          <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+            <h2 className="text-xl font-semibold text-slate-900">
+              Add health metrics
+            </h2>
 
-        <section className="mt-10">
-          <RecentEntries
-            entries={healthHistory}
-            onChange={loadDashboard}
-          />
-        </section>
+            <p className="mt-2 text-slate-600">
+              Record your latest measurements.
+            </p>
 
-        <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-          <h2 className="text-xl font-semibold text-slate-900">
-            Add health metrics
-          </h2>
-
-          <p className="mt-2 text-slate-600">
-            Record your latest measurements.
-          </p>
-
-          <form
-            onSubmit={handleMetricSubmit}
-            className="mt-6 grid gap-5 sm:grid-cols-2"
-          >
-            <MetricInput
-              label="Heart rate"
-              value={heartRate}
-              onChange={setHeartRate}
-              placeholder="72"
-              min="20"
-              max="250"
-            />
-
-            <MetricInput
-              label="Weight (kg)"
-              value={weightKg}
-              onChange={setWeightKg}
-              placeholder="74.5"
-              min="0.1"
-              max="500"
-              step="0.1"
-            />
-
-            <MetricInput
-              label="Steps"
-              value={steps}
-              onChange={setSteps}
-              placeholder="8200"
-              min="0"
-              step="1"
-            />
-
-            <MetricInput
-              label="Sleep (hours)"
-              value={sleepHours}
-              onChange={setSleepHours}
-              placeholder="7.5"
-              min="0"
-              max="24"
-              step="0.1"
-            />
-
-            {formError && (
-              <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 sm:col-span-2">
-                {formError}
-              </p>
-            )}
-
-            <button
-              type="submit"
-              disabled={isSaving}
-              className="rounded-lg bg-teal-700 px-5 py-3 font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
+            <form
+              onSubmit={handleMetricSubmit}
+              className="mt-6 grid gap-5 sm:grid-cols-2"
             >
-              {isSaving ? "Saving..." : "Save metrics"}
-            </button>
-          </form>
-        </section>
-      </div>
+              <MetricInput
+                label="Heart rate"
+                value={heartRate}
+                onChange={setHeartRate}
+                placeholder="72"
+                min="20"
+                max="250"
+              />
+
+              <MetricInput
+                label="Weight (kg)"
+                value={weightKg}
+                onChange={setWeightKg}
+                placeholder="74.5"
+                min="0.1"
+                max="500"
+                step="0.1"
+              />
+
+              <MetricInput
+                label="Steps"
+                value={steps}
+                onChange={setSteps}
+                placeholder="8200"
+                min="0"
+                step="1"
+              />
+
+              <MetricInput
+                label="Sleep (hours)"
+                value={sleepHours}
+                onChange={setSleepHours}
+                placeholder="7.5"
+                min="0"
+                max="24"
+                step="0.1"
+              />
+
+              {formError && (
+                <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 sm:col-span-2">
+                  {formError}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSaving}
+                className="rounded-lg bg-teal-700 px-5 py-3 font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
+              >
+                {isSaving ? "Saving..." : "Save metrics"}
+              </button>
+            </form>
+          </section>
+        </div>
+      </main>
+
       <Footer />
-    </main>
+    </>
   );
 }
 
@@ -581,7 +584,7 @@ function MetricInput({
         min={min}
         max={max}
         step={step}
-        className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-blue-500"
+        className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 outline-none focus:border-teal-700"
       />
     </div>
   );

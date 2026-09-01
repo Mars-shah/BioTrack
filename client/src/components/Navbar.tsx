@@ -20,7 +20,7 @@ function Navbar() {
           <img
             src={logo}
             alt="BioTrack"
-            className="h-36 w-auto lg:-ml-8"
+            className="h-20 w-auto lg:-ml-8"
           />
         </Link>
 

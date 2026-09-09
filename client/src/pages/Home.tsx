@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-import clouds from "../assets/clouds.jpg";
+import clouds from "../assets/Clouds.jpg";
 
 import {
  Activity,

@@ -16,8 +16,13 @@ import {
 function Home() {
  return (
    <main className="bg-white">
-     <section className="px-6 py-10">
-       <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-2">
+     <section className="relative bg-cover bg-center bg-no-repeat px-6 py-10"
+       style={{
+         backgroundImage: "url('/src/assets/clouds.jpg')",
+       }}
+     >
+       <div className="absolute inset-0 bg-white/50" />
+       <div className="relative mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-2">
          <div className="lg:pt-8">
            <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
              Personal health tracking

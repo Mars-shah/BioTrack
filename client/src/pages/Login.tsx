@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
+import { HeartPulse } from "lucide-react";
 
 import { loginUser } from "../services/api";
 
@@ -37,8 +38,21 @@ function Login() {
   }
 
   return (
-    <main className="flex min-h-[calc(100vh-73px)] items-center justify-center px-6">
-      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8">
+    <main className="relative flex min-h-[calc(100vh-73px)] items-center justify-center overflow-hidden bg-slate-50 px-6">
+
+      {/* Note to self * The animated heart behind the login box (delete if it looks funky) (change color maybe as well) */}
+      <div
+        className="login-heart-pulse pointer-events-none absolute"
+        aria-hidden="true"
+      >
+        <HeartPulse
+          strokeWidth={1}
+          className="h-[500px] w-[500px] text-red-500 sm:h-[600px] sm:w-[600px] lg:h-[700px] lg:w-[700px]"
+        />
+      </div>
+
+      <div className="relative z-10 w-full max-w-md rounded-xl border border-slate-200 bg-white/95 p-8 shadow-sm">
+
         <h1 className="text-3xl font-bold text-slate-900">
           Welcome back
         </h1>
@@ -47,7 +61,10 @@ function Login() {
           Log in to view your health dashboard.
         </p>
 
-        <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+        <form
+          className="mt-8 space-y-5"
+          onSubmit={handleSubmit}
+        >
           <div>
             <label
               htmlFor="email"

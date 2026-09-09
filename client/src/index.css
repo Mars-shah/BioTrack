@@ -5,3 +5,26 @@
 body {
   font-family: "Montserrat", Arial, sans-serif;
 }
+
+@keyframes heartPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.05;
+  }
+
+  50% {
+    transform: scale(1.06);
+    opacity: 0.10;
+  }
+}
+
+.login-heart-pulse {
+  animation: heartPulse 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-heart-pulse {
+    animation: none;
+  }
+}

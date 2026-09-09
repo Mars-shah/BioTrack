@@ -204,7 +204,7 @@ function Home() {
      <section className="border-y border-slate-200 bg-slate-50 px-6 py-16">
        <div className="mx-auto max-w-6xl text-center">
          <h2 className="mt-3 text-3xl font-bold text-slate-900">
-           Track. Understand. Improve.
+           Track - Understand - Improve
          </h2>
 
 

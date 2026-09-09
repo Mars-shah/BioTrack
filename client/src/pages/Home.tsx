@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import clouds from "../assets/clouds.jpg";
 
 import {
  Activity,
@@ -18,7 +19,7 @@ function Home() {
    <main className="bg-white">
      <section className="relative bg-cover bg-center bg-no-repeat px-6 py-10"
        style={{
-         backgroundImage: "url('/src/assets/clouds.jpg')",
+         backgroundImage: `url(${clouds})`,
        }}
      >
        <div className="absolute inset-0 bg-white/50" />

@@ -1,9 +1,69 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;500;600;700&display=swap");
 
 @import "tailwindcss";
 
+:root {
+  --background: #f6f7f5;
+  --surface: #ffffff;
+  --surface-secondary: #edf1ef;
+
+  --foreground: #101828;
+  --muted: #667085;
+
+  --border: #dfe4e1;
+
+  --primary: #0f766e;
+  --primary-hover: #0d5f59;
+
+  --danger: #dc2626;
+}
+
+.dark {
+  --background: #0d1117;
+  --surface: #151b23;
+  --surface-secondary: #1c232d;
+
+  --foreground: #f5f7fa;
+  --muted: #9aa4b2;
+
+  --border: #29313c;
+
+  --primary: #2dd4bf;
+  --primary-hover: #5eead4;
+
+  --danger: #f87171;
+}
+
+html {
+  background: var(--background);
+}
+
 body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
   font-family: "Montserrat", Arial, sans-serif;
+
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.display-font {
+  font-family: "Instrument Serif", Georgia, serif;
+}
+
+button,
+a,
+input,
+section,
+div,
+nav,
+footer {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
 }
 
 @keyframes heartPulse {
@@ -15,7 +75,7 @@ body {
 
   50% {
     transform: scale(1.06);
-    opacity: 0.10;
+    opacity: 0.1;
   }
 }
 

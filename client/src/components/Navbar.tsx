@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  Menu,
-  Moon,
-  Sun,
-  X,
-} from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 
-import logo from "../assets/biotrack-logo.svg";
+import lightLogo from "../assets/biotrack-logo.svg";
+import darkLogo from "../assets/biotrack-logoblack.svg";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -66,21 +62,18 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--surface)]/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-
-        {/* Logo */}
         <Link
           to="/"
           onClick={closeMenu}
           className="flex items-center"
         >
           <img
-            src={logo}
+            src={isDark ? darkLogo : lightLogo}
             alt="BioTrack"
             className="w-[105px] sm:w-[115px] lg:w-[130px]"
           />
         </Link>
 
-        {/* Desktop navigation */}
         <div className="hidden items-center gap-6 md:flex">
           {isLoggedIn ? (
             <>
@@ -94,7 +87,7 @@ function Navbar() {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="rounded-lg bg-[var(--danger)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
+                className="rounded-md bg-[var(--danger)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
               >
                 Logout
               </button>
@@ -110,18 +103,17 @@ function Navbar() {
 
               <Link
                 to="/login"
-                className="rounded-lg bg-[var(--danger)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
+                className="rounded-md bg-[var(--danger)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
               >
                 Login
               </Link>
             </>
           )}
 
-          {/* Theme toggle */}
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] transition hover:bg-[var(--surface-secondary)]"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--surface)] text-[var(--foreground)] transition hover:bg-[var(--surface-secondary)]"
             aria-label="Toggle theme"
           >
             {isDark ? (
@@ -132,14 +124,11 @@ function Navbar() {
           </button>
         </div>
 
-        {/* Mobile controls */}
         <div className="flex items-center gap-2 md:hidden">
-
-          {/* Theme toggle */}
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-[var(--foreground)] transition hover:bg-[var(--surface-secondary)]"
+            className="flex h-10 w-10 items-center justify-center rounded-md text-[var(--foreground)] transition hover:bg-[var(--surface-secondary)]"
             aria-label="Toggle theme"
           >
             {isDark ? (
@@ -149,11 +138,10 @@ function Navbar() {
             )}
           </button>
 
-          {/* Hamburger */}
           <button
             type="button"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-[var(--foreground)] transition hover:bg-[var(--surface-secondary)]"
+            className="flex h-10 w-10 items-center justify-center rounded-md text-[var(--foreground)] transition hover:bg-[var(--surface-secondary)]"
             aria-label="Toggle navigation"
             aria-expanded={isMenuOpen}
           >
@@ -166,11 +154,9 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Mobile dropdown */}
       {isMenuOpen && (
         <div className="border-t border-[var(--border)] bg-[var(--surface)] md:hidden">
           <div className="flex flex-col px-5 py-3">
-
             {isLoggedIn ? (
               <>
                 <Link

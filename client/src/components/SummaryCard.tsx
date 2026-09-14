@@ -14,10 +14,10 @@ type SummaryCardProps = {
 };
 
 const cardClasses: Record<CardColor, string> = {
-  red: "bg-red-50 border-red-100",
-  blue: "bg-blue-50 border-blue-100",
-  green: "bg-green-50 border-green-100",
-  purple: "bg-purple-50 border-purple-100",
+  red: "border-red-500/20 bg-red-500/10",
+  blue: "border-blue-500/20 bg-blue-500/10",
+  green: "border-green-500/20 bg-green-500/10",
+  purple: "border-purple-500/20 bg-purple-500/10",
 };
 
 const iconClasses: Record<CardColor, string> = {
@@ -52,15 +52,15 @@ function SummaryCard({
 
   return (
     <section
-      className={`rounded-2xl border p-6 shadow-sm ${cardClasses[color]}`}
+      className={`rounded-lg border p-5 ${cardClasses[color]}`}
     >
       {getIcon()}
 
-      <p className="mt-4 text-sm font-semibold text-slate-500">
+      <p className="mt-4 text-sm font-medium text-[var(--muted)]">
         {title}
       </p>
 
-      <p className="mt-1 text-2xl font-bold text-slate-900">
+      <p className="mt-1 text-2xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
         {value}
       </p>
     </section>

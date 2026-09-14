@@ -74,7 +74,7 @@ footer {
   }
 
   50% {
-    transform: scale(1.06);
+    transform: scale(1.45);
     opacity: 0.1;
   }
 }
@@ -85,6 +85,43 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   .login-heart-pulse {
+    animation: none;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 600ms ease-out both;
+}
+
+.fade-up-delay-1 {
+  animation-delay: 100ms;
+}
+
+.fade-up-delay-2 {
+  animation-delay: 200ms;
+}
+
+.fade-up-delay-3 {
+  animation-delay: 300ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .fade-up-delay-1,
+  .fade-up-delay-2,
+  .fade-up-delay-3 {
     animation: none;
   }
 }

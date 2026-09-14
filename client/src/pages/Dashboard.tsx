@@ -216,9 +216,9 @@ function Dashboard() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen px-6 py-10">
+      <main className="min-h-screen bg-[var(--background)] px-6 py-10">
         <div className="mx-auto max-w-6xl">
-          <p className="text-slate-600">
+          <p className="text-[var(--muted)]">
             Loading dashboard...
           </p>
         </div>
@@ -228,9 +228,9 @@ function Dashboard() {
 
   if (error) {
     return (
-      <main className="min-h-screen px-6 py-10">
+      <main className="min-h-screen bg-[var(--background)] px-6 py-10">
         <div className="mx-auto max-w-6xl">
-          <p className="text-red-600">
+          <p className="text-red-500">
             {error}
           </p>
         </div>
@@ -240,33 +240,39 @@ function Dashboard() {
 
   return (
     <>
-      <main className="min-h-screen px-6 py-10">
+      <main className="min-h-screen bg-[var(--background)] px-6 py-10 text-[var(--foreground)]">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-3xl font-bold text-slate-900">
-            Welcome back,{" "}
-            {data?.user.name
-              ? data.user.name.charAt(0).toUpperCase() +
-                data.user.name.slice(1)
-              : "User"}
-          </h1>
+          <div className="fade-up">
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--primary)]">
+              Dashboard
+            </p>
 
-          <p className="mt-2 text-slate-600">
-            Review your latest health measurements and track your progress.
-          </p>
+            <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[var(--foreground)] md:text-4xl">
+              Welcome back,{" "}
+              {data?.user.name
+                ? data.user.name.charAt(0).toUpperCase() +
+                  data.user.name.slice(1)
+                : "User"}
+            </h1>
+
+            <p className="mt-2 text-[var(--muted)]">
+              Review your latest health measurements and track your progress.
+            </p>
+          </div>
 
           {!data?.latest_metrics ? (
-            <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-              <h2 className="text-xl font-semibold text-slate-900">
+            <div className="fade-up fade-up-delay-1 mt-8 border-y border-[var(--border)] py-8">
+              <h2 className="text-xl font-semibold text-[var(--foreground)]">
                 No health data yet
               </h2>
 
-              <p className="mt-2 text-slate-600">
+              <p className="mt-2 text-[var(--muted)]">
                 Add your first health measurement to begin tracking your
                 progress.
               </p>
             </div>
           ) : (
-            <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <section className="fade-up fade-up-delay-1 mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <SummaryCard
                 title="Heart Rate"
                 value={
@@ -309,16 +315,16 @@ function Dashboard() {
             </section>
           )}
 
-          <section className="mt-10">
-            <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
+          <section className="mt-14 border-t border-[var(--border)] pt-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--primary)]">
               This week
             </p>
 
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">
+            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
               Weekly summary
             </h2>
 
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <SummaryCard
                 title="Average Heart Rate"
                 value={
@@ -357,49 +363,52 @@ function Dashboard() {
             </div>
           </section>
 
-          <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
+          <section className="mt-14 border-y border-[var(--border)] py-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--primary)]">
               Insights
             </p>
 
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">
+            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
               Weekly observations
             </h2>
 
-            <p className="mt-2 text-slate-600">
-              Note: These observations are based on the health data you entered
+            <p className="mt-2 max-w-2xl text-[var(--muted)]">
+              These observations are based on the health data you entered
               and are not medical advice.
             </p>
 
-            <div className="mt-6 space-y-3">
+            <div className="mt-6 divide-y divide-[var(--border)] border-y border-[var(--border)]">
               {insights.map((insight, index) => (
                 <div
                   key={index}
-                  className="rounded-xl bg-slate-50 px-4 py-3 text-slate-700"
+                  className="py-4 text-sm leading-6 text-[var(--foreground)]"
                 >
+                  <span className="mr-3 font-semibold text-[var(--primary)]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   {insight}
                 </div>
               ))}
             </div>
           </section>
 
-          <section className="mt-10">
-            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <section className="mt-14">
+            <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-wide text-red-500">
+                <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--primary)]">
                   Trends
                 </p>
 
-                <h2 className="mt-2 text-2xl font-bold text-slate-900">
+                <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
                   Your health history
                 </h2>
 
-                <p className="mt-2 text-slate-600">
+                <p className="mt-2 text-[var(--muted)]">
                   Review how your measurements have changed over time.
                 </p>
               </div>
 
-              <div className="flex rounded-lg border border-slate-200 bg-white p-1">
+              <div className="flex w-fit border border-[var(--border)] bg-[var(--surface)] p-1">
                 <ChartRangeButton
                   label="7 Days"
                   value="7d"
@@ -438,25 +447,29 @@ function Dashboard() {
             </div>
           </section>
 
-          <section className="mt-10">
+          <section className="mt-14 border-t border-[var(--border)] pt-10">
             <RecentEntries
               entries={healthHistory}
               onChange={loadDashboard}
             />
           </section>
 
-          <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900">
+          <section className="mt-14 mb-10 border-y border-[var(--border)] py-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--primary)]">
+              New entry
+            </p>
+
+            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
               Add health metrics
             </h2>
 
-            <p className="mt-2 text-slate-600">
+            <p className="mt-2 text-[var(--muted)]">
               Record your latest measurements.
             </p>
 
             <form
               onSubmit={handleMetricSubmit}
-              className="mt-6 grid gap-5 sm:grid-cols-2"
+              className="mt-7 grid gap-5 sm:grid-cols-2"
             >
               <MetricInput
                 label="Heart rate"
@@ -497,7 +510,7 @@ function Dashboard() {
               />
 
               {formError && (
-                <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 sm:col-span-2">
+                <p className="rounded-md border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-500 sm:col-span-2">
                   {formError}
                 </p>
               )}
@@ -505,7 +518,7 @@ function Dashboard() {
               <button
                 type="submit"
                 disabled={isSaving}
-                className="rounded-lg bg-teal-700 px-5 py-3 font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
+                className="rounded-md bg-[var(--primary)] px-5 py-3 font-semibold text-white transition hover:bg-[var(--primary-hover)] disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
               >
                 {isSaving ? "Saving..." : "Save metrics"}
               </button>
@@ -538,10 +551,10 @@ function ChartRangeButton({
     <button
       type="button"
       onClick={() => onChange(value)}
-      className={`rounded-md px-3 py-2 text-sm font-medium ${
+      className={`rounded-sm px-3 py-2 text-sm font-medium transition ${
         isSelected
-          ? "bg-teal-600 text-white"
-          : "text-slate-600 hover:bg-slate-100"
+          ? "bg-[var(--primary)] text-white"
+          : "text-[var(--muted)] hover:bg-[var(--surface-secondary)] hover:text-[var(--foreground)]"
       }`}
     >
       {label}
@@ -570,7 +583,7 @@ function MetricInput({
 }: MetricInputProps) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-medium text-slate-700">
+      <label className="mb-2 block text-sm font-medium text-[var(--foreground)]">
         {label}
       </label>
 
@@ -584,7 +597,7 @@ function MetricInput({
         min={min}
         max={max}
         step={step}
-        className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 outline-none focus:border-teal-700"
+        className="w-full rounded-md border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-[var(--foreground)] outline-none transition placeholder:text-[var(--muted)] focus:border-[var(--primary)]"
       />
     </div>
   );

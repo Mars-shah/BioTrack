@@ -146,12 +146,16 @@ function RecentEntries({
 
   if (recentEntries.length === 0) {
     return (
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-xl font-semibold text-slate-900">
+      <section className="border-y border-[var(--border)] py-8">
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--primary)]">
+          History
+        </p>
+
+        <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
           Recent entries
         </h2>
 
-        <p className="mt-3 text-slate-500">
+        <p className="mt-3 text-[var(--muted)]">
           No health entries yet.
         </p>
       </section>
@@ -159,25 +163,29 @@ function RecentEntries({
   }
 
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-semibold text-slate-900">
+    <section>
+      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--primary)]">
+        History
+      </p>
+
+      <h2 className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
         Recent entries
       </h2>
 
       {error && (
-        <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p className="mt-4 rounded-md border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-500">
           {error}
         </p>
       )}
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 divide-y divide-[var(--border)] border-y border-[var(--border)]">
         {recentEntries.map((entry) => (
           <div
             key={entry.id}
-            className="rounded-xl border border-slate-200 p-4"
+            className="py-5"
           >
             <div className="flex items-start justify-between gap-4">
-              <p className="text-sm font-medium text-slate-500">
+              <p className="text-sm font-medium text-[var(--muted)]">
                 {new Date(
                   entry.recorded_at,
                 ).toLocaleDateString()}
@@ -190,7 +198,7 @@ function RecentEntries({
                     onClick={() =>
                       startEditing(entry)
                     }
-                    className="text-sm font-medium text-blue-600 hover:text-blue-700"
+                    className="text-sm font-medium text-[var(--primary)] transition hover:opacity-70"
                   >
                     Edit
                   </button>
@@ -203,7 +211,7 @@ function RecentEntries({
                     disabled={
                       deletingId === entry.id
                     }
-                    className="text-sm font-medium text-red-600 hover:text-red-700 disabled:opacity-50"
+                    className="text-sm font-medium text-[var(--danger)] transition hover:opacity-70 disabled:opacity-50"
                   >
                     {deletingId === entry.id
                       ? "Deleting..."
@@ -214,7 +222,7 @@ function RecentEntries({
             </div>
 
             {editingId === entry.id ? (
-              <div className="mt-4">
+              <div className="mt-5">
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                   <EditInput
                     label="Heart rate"
@@ -254,7 +262,7 @@ function RecentEntries({
                       handleSave(entry.id)
                     }
                     disabled={isSaving}
-                    className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+                    className="rounded-md bg-[var(--primary)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--primary-hover)] disabled:opacity-50"
                   >
                     {isSaving
                       ? "Saving..."
@@ -265,7 +273,7 @@ function RecentEntries({
                     type="button"
                     onClick={cancelEditing}
                     disabled={isSaving}
-                    className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                    className="rounded-md border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--foreground)] transition hover:bg-[var(--surface-secondary)]"
                   >
                     Cancel
                   </button>
@@ -273,7 +281,7 @@ function RecentEntries({
               </div>
             ) : (
               <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 text-[var(--foreground)]">
                   <HeartPulse
                     size={20}
                     className="text-red-500"
@@ -286,7 +294,7 @@ function RecentEntries({
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 text-[var(--foreground)]">
                   <Weight
                     size={20}
                     className="text-blue-500"
@@ -299,7 +307,7 @@ function RecentEntries({
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 text-[var(--foreground)]">
                   <Footprints
                     size={20}
                     className="text-green-500"
@@ -312,7 +320,7 @@ function RecentEntries({
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 text-[var(--foreground)]">
                   <Moon
                     size={20}
                     className="text-purple-500"
@@ -350,7 +358,7 @@ function EditInput({
 }: EditInputProps) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-medium text-slate-600">
+      <label className="mb-2 block text-sm font-medium text-[var(--foreground)]">
         {label}
       </label>
 
@@ -363,7 +371,7 @@ function EditInput({
         placeholder={placeholder}
         step={step}
         min="0"
-        className="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-blue-500"
+        className="w-full rounded-md border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-[var(--foreground)] outline-none transition placeholder:text-[var(--muted)] focus:border-[var(--primary)]"
       />
     </div>
   );

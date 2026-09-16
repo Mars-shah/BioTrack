@@ -6,6 +6,7 @@ import {
   Activity,
   ArrowRight,
   Footprints,
+  Heart,
   HeartPulse,
   Moon,
   ShieldCheck,
@@ -52,7 +53,6 @@ function Home() {
                 Get started
                 <ArrowRight size={18} />
               </Link>
-
               <Link
                 to="/login"
                 className="rounded-md border border-[var(--border)] bg-[var(--surface)]/75 px-6 py-3 font-semibold text-[var(--foreground)] backdrop-blur-sm transition hover:bg-[var(--surface-secondary)]"
@@ -67,7 +67,6 @@ function Home() {
                   size={17}
                   className="text-[var(--primary)]"
                 />
-                Secure account access
               </div>
 
               <div className="flex items-center gap-2">
@@ -75,7 +74,30 @@ function Home() {
                   size={17}
                   className="text-[var(--primary)]"
                 />
-                Track changes over time
+              </div>
+              <div className="flex items-center gap-2">
+                <HeartPulse
+                  size={17}
+                  className="text-[var(--primary)]"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Weight
+                  size={17}
+                  className="text-[var(--primary)]"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Footprints
+                  size={17}
+                  className="text-[var(--primary)]"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Moon
+                  size={17}
+                  className="text-[var(--primary)]"
+                />
               </div>
             </div>
           </div>

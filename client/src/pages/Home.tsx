@@ -6,7 +6,6 @@ import {
   Activity,
   ArrowRight,
   Footprints,
-  Heart,
   HeartPulse,
   Moon,
   ShieldCheck,

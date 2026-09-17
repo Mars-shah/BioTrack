@@ -12,8 +12,8 @@
 
   --border: #dfe4e1;
 
-  --primary: #0f766e;
-  --primary-hover: #0d5f59;
+  --primary: #FF5757;
+  --primary-hover: #db4d4d;
 
   --danger: #dc2626;
 }
@@ -51,6 +51,9 @@ body {
 
 .display-font {
   font-family: "Instrument Serif", Georgia, serif;
+}
+.playful-font {
+  font-family: "DM Serif Display", Georgia, serif;
 }
 
 button,

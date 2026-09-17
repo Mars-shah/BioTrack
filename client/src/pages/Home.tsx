@@ -30,9 +30,9 @@ function Home() {
               Personal health tracking
             </p>
 
-            <h1 className="fade-up fade-up-delay-1 mt-4 max-w-xl text-5xl font-semibold leading-[1.05] tracking-[-0.04em] text-[var(--foreground)] md:text-6xl">
+            <h1 className="fade-up fade-up-delay-1 mt-4 max-w-xl text-5xl font-bold leading-[1.05] tracking-[-0.04em] text-[var(--foreground)] md:text-6xl">
               Your health data,
-              <span className="text-[var(--primary)]">
+              <span className="playful-font italic font-semibold text-[var(--primary)]">
                 {" "}
                 made clearer.
               </span>

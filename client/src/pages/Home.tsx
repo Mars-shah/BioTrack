@@ -295,7 +295,7 @@ function Home() {
               </h2>
 
               <p className="mt-4 leading-7 text-[var(--muted)]">
-                Create an account, add your first measurements, and start
+                Create an account, add your first measurements under dashboard, and start
                 seeing your trends over time.
               </p>
             </div>

@@ -282,35 +282,6 @@ function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-16">
-        <div className="mx-auto max-w-6xl border-y border-[var(--border)] py-12">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--primary)]">
-                Start tracking
-              </p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-[var(--foreground)]">
-                Build a health history you can actually follow.
-              </h2>
-
-              <p className="mt-4 leading-7 text-[var(--muted)]">
-                Create an account, add your first measurements under dashboard, and start
-                seeing your trends over time.
-              </p>
-            </div>
-
-            <Link
-              to="/register"
-              className="inline-flex w-fit items-center gap-2 rounded-md bg-[var(--primary)] px-6 py-3 font-semibold text-white transition hover:bg-[var(--primary-hover)]"
-            >
-              Create account
-              <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
       <Footer />
     </main>
   );
